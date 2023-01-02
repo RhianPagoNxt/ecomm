@@ -1,0 +1,13 @@
+{
+  "name": "account",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/use-case/createUserAccount.js",
+  "type": "module",
+  "scripts": {
+    "start": "node test/createUserAccount.test.js",
+    "test": ""
+  },
+  "author": "Rhian Moura",
+  "license": "ISC"
+}
