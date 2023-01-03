@@ -2,12 +2,12 @@
   "name": "account",
   "version": "1.0.0",
   "description": "",
-  "main": "src/use-case/createUserAccount.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node test/createUserAccount.test.js",
-    "test": ""
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
   "author": "Rhian Moura",
   "license": "ISC"
 }
