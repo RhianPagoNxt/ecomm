@@ -1,15 +1,7 @@
 export default createUserUseCase;
 export { users };
 
-const users = [
-    {
-        id: 1,
-        name: "Rhian Moura",
-        email: "rhianmoura@email.com",
-        password: "senhaDoRhian",
-        createdDate: "03/01/2023"
-    }
-];
+const users = [];
 
 function createUserUseCase (name, email, password) {
     users.push({

@@ -5,9 +5,7 @@ export default removeUserUseCase;
 function removeUserUseCase (email) {
     const userSearch = users.findIndex((user) => user.email === email);
 
-    if (userSearch === -1) {
-        return false;
-    }
+    if (userSearch === -1) return false;
  
     users.splice(userSearch, 1);
 
