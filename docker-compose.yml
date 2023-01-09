@@ -4,3 +4,7 @@ services:
     container_name: product
     image: ecomm-product
     build: ./product
+  account:
+    container_name: account
+    image: ecomm-account
+    build: ./account
