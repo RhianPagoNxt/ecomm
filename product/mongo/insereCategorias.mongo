@@ -1,4 +1,4 @@
-use("mongo-ecomm")
+use("ecomm-product")
 
 db.categories.insertMany([
     {
