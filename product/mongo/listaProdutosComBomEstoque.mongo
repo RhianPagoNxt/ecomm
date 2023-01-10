@@ -1,0 +1,6 @@
+use("ecomm-product")
+
+db.products.find(
+    {qntdEstoque: {$gte: 3}}, 
+    {produto: 1, qntdEstoque: 1, _id: 1}
+)
