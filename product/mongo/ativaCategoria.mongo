@@ -1,0 +1,6 @@
+use("ecomm-product")
+
+db.categories.updateOne(
+    {name: "ESPORTE"},
+    {$set: {status: "ATIVA"}}
+)
