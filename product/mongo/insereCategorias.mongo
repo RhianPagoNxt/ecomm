@@ -2,35 +2,35 @@ use("ecomm-product")
 
 db.categories.insertMany([
     {
-        name: "INFORMÁTICA",
+        nome: "INFORMÁTICA",
         status: "ATIVA"
     },
     {
-        name: "BElEZA",
+        nome: "BElEZA",
         status: "INATIVA"
     },
     {
-        name: "CELULARES",
+        nome: "CELULARES",
         status: "ATIVA"
     },
     {
-        name: "MÓVEIS",
+        nome: "MÓVEIS",
         status: "ATIVA"
     },
     {
-        name: "LUXO",
+        nome: "LUXO",
         status: "INATIVA"
     },
     {
-        name: "ESPORTE",
+        nome: "ESPORTE",
         status: "INATIVA"
     },
     {
-        name: "AUTOMOTIVA",
+        nome: "AUTOMOTIVA",
         status: "ATIVA"
     },
     {
-        name: "LIVROS",
+        nome: "LIVROS",
         status: "ATIVA"
     }
 ])
