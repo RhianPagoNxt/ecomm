@@ -6,7 +6,7 @@ db.categories.insertMany([
         status: "ATIVA"
     },
     {
-        nome: "BElEZA",
+        nome: "BELEZA",
         status: "INATIVA"
     },
     {
