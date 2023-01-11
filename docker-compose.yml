@@ -1,10 +1,22 @@
 version: '3.9'
 services:
+
   product:
     container_name: product
     image: ecomm-product
     build: ./product
+
   account:
     container_name: account
     image: ecomm-account
     build: ./account
+
+  mongo:
+    container_name: mongo-ecomm
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: secret
