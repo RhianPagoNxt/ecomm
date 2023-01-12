@@ -3,8 +3,3 @@ use("ecomm-product")
 db.products.find(
     {categoria: {$in: ["LIVROS", "CELULARES"]}}
 )
-
-// Consulta pós-modelagem
-db.products.find(
-    {"categoria.nome": {$in: ["LIVROS", "CELULARES"]}}
-)

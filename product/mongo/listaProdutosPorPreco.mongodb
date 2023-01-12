@@ -2,5 +2,5 @@ use("ecomm-product")
 
 db.products.find(
     {$and: [{precoUnitario: {$gte: 1000.00}}, {precoUnitario: {$lte: 2000.00}}]},
-    {produto: 1, precoUnitario: 1, _id: 1}
+    {nome: 1, precoUnitario: 1}
 )
