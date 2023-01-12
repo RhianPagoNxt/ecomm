@@ -1,6 +1,6 @@
 use("ecomm-product")
 
 db.products.updateMany(
-    {"categoriaInfo.categoriaNome": "LIVROS"}, 
+    {"categoria.nome": "LIVROS"}, 
     {$set: {qntdEstoque: 0}}
 )

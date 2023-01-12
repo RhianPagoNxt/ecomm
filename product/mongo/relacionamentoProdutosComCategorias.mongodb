@@ -4,13 +4,11 @@ db.products.find({}).forEach(function(product) {
     const category = db.categories.findOne({nome: product.categoria})
 
     if (category.status === "ATIVA") {
-        product.categoriaInfo = {
-            categoriaNome: category.nome,
-            categoriaId: category._id
+        product.categoria = {
+            nome: category.nome,
+            id: category._id
         }
     }
-    
-    delete product.categoria
 
     db.products.replaceOne({_id: product._id}, product)
 })
