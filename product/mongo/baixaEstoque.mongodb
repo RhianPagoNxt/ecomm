@@ -1,0 +1,64 @@
+use ("ecomm-account")
+
+db.usuarios.aggregate([
+    {
+        $match: {
+            nome: "Josué Lima"
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            data: ISODate(),
+            cliente: {
+                nome: "$nome",
+                cpf: "$cpf",
+                cliente_id: "$_id"
+            },
+            endereço: {
+                rua: "Quadra 606 Sul Alameda Di Cavalcanti",
+                numero: "59",
+                complemento: "Casa azul do portão de ferro",
+                cep: "77022-068",
+                cidade: "Palmas",
+                uf: "TO"
+            }
+        }
+    },
+    {
+        $merge: { 
+           into: { db: "ecomm-order", coll: "pedidos"},
+           whenMatched: "replace", 
+           whenNotMatched: "insert"
+        }
+    }
+])
+
+use ("ecomm-product")
+
+var produto4 = db.products.findOneAndUpdate(
+    { nome: "Galaxy Tab S8", qntdEstoque: { $gt: 0 } },
+    { $inc: { qntdEstoque: -2 } },
+    { projection: { nome: 1, precoUnitario: 1} }
+)
+
+use ("ecomm-order")
+
+db.pedidos.updateOne(
+    {
+        "cliente.nome": "Josué Lima"
+    },
+    {
+        $set: {
+            itens: [
+                {
+                    produto_id: produto4._id,
+                    nomeProduto: produto4.nome,
+                    quantidade: 2,
+                    valorDesconto: NumberDecimal("590.00"),
+                    precoUnitario: produto4.precoUnitario,
+                }
+            ]
+        } 
+    }
+)
