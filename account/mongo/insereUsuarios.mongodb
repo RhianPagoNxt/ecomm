@@ -1,0 +1,52 @@
+use ("ecomm-account")
+
+db.usuarios.insertMany([
+    {
+        nome: "Rhian Moura",
+        email: "rhian.moura@example.com",
+        senha: "$2y$10$cWVG2INJb2DItW5zZx7iN.SvRjz4rHqiOTelBBi6r.0sd2CkGJ7Ry",
+        data: ISODate(),
+        cpf: "450.669.340-06",
+        telefone: "(84) 99863-4028",
+        endereço: {
+            rua: "Rua Tomás Matias",
+            numero: "815",
+            complemento: "Casa do portão cinza",
+            cep: "59152-640",
+            cidade: "Parnamirim",
+            uf: "RN"
+        }
+    },
+    {
+       nome: "Josué Lima",
+        email: "josue.lima@example.com",
+        senha: "$2y$10$4EAQW9e821KXzvSiHz86pebwJWpFE6PJ0m10q6dBWjOCO4IJIlRzm",
+        data: ISODate(),
+        cpf: "815.212.480-01",
+        telefone: "(63) 94885-2233",
+        endereço: {
+            rua: "Rua 33",
+            numero: "333",
+            complemento: "Bl. 2 Ap. 3",
+            cep: "77434-001",
+            cidade: "Gurupi",
+            uf: "TO"
+        } 
+    },
+    {
+        nome: "Bia Ferreira",
+        email: "bia.ferreira@example.com",
+        senha: "$2y$10$yzOR1nDZ6NLaVkno5O/Ya.2X4wB375erw9/4spoKmG4tmctYdemga",
+        data: ISODate(),
+        cpf: "358.525.998-75",
+        telefone: "(11) 97441-8960",
+        endereço: {
+            rua: "Rua Chucri Zogbi",
+            numero: "571",
+            complemento: "S/N",
+            cep: "13473-280",
+            cidade: "Americana",
+            uf: "SP"
+        } 
+    }
+])
