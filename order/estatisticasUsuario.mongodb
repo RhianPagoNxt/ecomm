@@ -1,6 +1,6 @@
 use("ecomm-order");
 
-db.pedidos.aggregate([
+db.orders.aggregate([
     {
         $match: {
             "cliente.nome": "Bia Ferreira"

@@ -1,6 +1,6 @@
 use ("ecomm-account")
 
-db.usuarios.aggregate([
+db.users.aggregate([
     {
         $match: {
             nome: "Josué Lima"
@@ -15,7 +15,7 @@ db.usuarios.aggregate([
                 cpf: "$cpf",
                 cliente_id: "$_id"
             },
-            endereço: {
+            enderecoEntrega: {
                 rua: "Quadra 606 Sul Alameda Di Cavalcanti",
                 numero: "59",
                 complemento: "Casa azul do portão de ferro",
@@ -27,7 +27,7 @@ db.usuarios.aggregate([
     },
     {
         $merge: { 
-           into: { db: "ecomm-order", coll: "pedidos"},
+           into: { db: "ecomm-order", coll: "orders"},
            whenMatched: "replace", 
            whenNotMatched: "insert"
         }
@@ -44,7 +44,7 @@ var produto4 = db.products.findOneAndUpdate(
 
 use ("ecomm-order")
 
-db.pedidos.updateOne(
+db.orders.updateOne(
     {
         "cliente.nome": "Josué Lima"
     },

@@ -1,6 +1,6 @@
 use ("ecomm-account")
 
-db.usuarios.aggregate([
+db.users.aggregate([
     {
         $match: {
             nome: "Rhian Moura"
@@ -15,7 +15,7 @@ db.usuarios.aggregate([
                 cpf: "$cpf",
                 cliente_id: "$_id"
             },
-            endereço: {
+            enderecoEntrega: {
                 rua: "Rua Trinta e Um de Março",
                 numero: "12",
                 complemento: "S/N",
@@ -27,7 +27,7 @@ db.usuarios.aggregate([
     },
     {
         $merge: { 
-           into: { db: "ecomm-order", coll: "pedidos"},
+           into: { db: "ecomm-order", coll: "orders"},
            whenMatched: "replace", 
            whenNotMatched: "insert"
         }
@@ -40,7 +40,7 @@ var produto1 = db.products.findOne({nome: "iPhone 13 Pro"}, {nome: 1, precoUnita
 
 use ("ecomm-order")
 
-db.pedidos.updateOne(
+db.orders.updateOne(
     {
         "cliente.nome": "Rhian Moura"
     },
@@ -61,7 +61,7 @@ db.pedidos.updateOne(
 
 use ("ecomm-account")
 
-db.usuarios.aggregate([
+db.users.aggregate([
     {
         $match: {
             nome: "Bia Ferreira"
@@ -76,7 +76,7 @@ db.usuarios.aggregate([
                 cpf: "$cpf",
                 cliente_id: "$_id"
             },
-            endereço: {
+            enderecoEntrega: {
                 rua: "Rua Chucri Zogbi",
                 numero: "571",
                 complemento: "S/N",
@@ -88,7 +88,7 @@ db.usuarios.aggregate([
     },
     {
         $merge: { 
-           into: { db: "ecomm-order", coll: "pedidos"},
+           into: { db: "ecomm-order", coll: "orders"},
            whenMatched: "replace", 
            whenNotMatched: "insert"
         }
@@ -102,7 +102,7 @@ var produto3 = db.products.findOne({nome: "Jogo de pneus"}, {nome: 1, precoUnita
 
 use ("ecomm-order")
 
-db.pedidos.updateOne(
+db.orders.updateOne(
     {
         "cliente.nome": "Bia Ferreira"
     },
