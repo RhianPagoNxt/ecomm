@@ -37,7 +37,7 @@ db.usuarios.aggregate([
 use ("ecomm-product")
 
 var produto4 = db.products.findOneAndUpdate(
-    { nome: "Galaxy Tab S8", qntdEstoque: { $gt: 0 } },
+    { nome: "Galaxy Tab S8", qntdEstoque: { $gte: 2 } },
     { $inc: { qntdEstoque: -2 } },
     { projection: { nome: 1, precoUnitario: 1} }
 )
