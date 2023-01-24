@@ -1,0 +1,129 @@
+use ("ecomm-account")
+
+db.users.aggregate([
+    {
+        $match: {
+            nome: "Rhian Moura"
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            data: ISODate(),
+            cliente: {
+                nome: "$nome",
+                cpf: "$cpf",
+                cliente_id: "$_id"
+            },
+            enderecoEntrega: {
+                rua: "Rua Trinta e Um de Março",
+                numero: "12",
+                complemento: "S/N",
+                cep: "59090-240",
+                cidade: "Natal",
+                uf: "RN"
+            }
+        }
+    },
+    {
+        $merge: { 
+           into: { db: "ecomm-order", coll: "orders"},
+           whenMatched: "replace", 
+           whenNotMatched: "insert"
+        }
+    }
+])
+
+use ("ecomm-product")
+
+var produto1 = db.products.findOne({nome: "iPhone 13 Pro"}, {nome: 1, precoUnitario: 1})
+
+use ("ecomm-order")
+
+db.orders.updateOne(
+    {
+        "cliente.nome": "Rhian Moura"
+    },
+    {
+        $set: {
+            itens: [
+                {
+                    produto_id: produto1._id,
+                    nomeProduto: produto1.nome,
+                    quantidade: 1,
+                    valorDesconto: NumberDecimal("500.00"),
+                    precoUnitario: produto1.precoUnitario,
+                }
+            ]
+        }
+    }
+)
+
+use ("ecomm-account")
+
+db.users.aggregate([
+    {
+        $match: {
+            nome: "Bia Ferreira"
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            data: ISODate(),
+            cliente: {
+                nome: "$nome",
+                cpf: "$cpf",
+                cliente_id: "$_id"
+            },
+            enderecoEntrega: {
+                rua: "Rua Chucri Zogbi",
+                numero: "571",
+                complemento: "S/N",
+                cep: "13473-280",
+                cidade: "Americana",
+                uf: "SP"
+            }
+        }
+    },
+    {
+        $merge: { 
+           into: { db: "ecomm-order", coll: "orders"},
+           whenMatched: "replace", 
+           whenNotMatched: "insert"
+        }
+    }
+])
+
+use("ecomm-product")
+
+var produto2 = db.products.findOne({nome: 'Monitor Dell 27"'}, {nome: 1, precoUnitario: 1})
+var produto3 = db.products.findOne({nome: "Jogo de pneus"}, {nome: 1, precoUnitario: 1})
+
+use ("ecomm-order")
+
+db.orders.updateOne(
+    {
+        "cliente.nome": "Bia Ferreira"
+    },
+    {
+        $set: {
+            itens: [
+                {
+                    produto_id: produto2._id,
+                    nomeProduto: produto2.nome,
+                    quantidade: 2,
+                    valorDesconto: NumberDecimal("180.00"),
+                    precoUnitario: produto2.precoUnitario
+                },
+                {
+                    produto_id: produto3._id,
+                    nomeProduto: produto3.nome,
+                    quantidade: 1,
+                    valorDesconto: NumberDecimal("63.50"),
+                    precoUnitario: produto3.precoUnitario
+                }
+            ]
+        }
+    }
+)

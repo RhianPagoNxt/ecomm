@@ -1,0 +1,41 @@
+use("ecomm-order");
+
+db.orders.aggregate([
+    {
+        $match: {
+            "cliente.nome": "Bia Ferreira"
+        }
+    },
+    {
+        $unwind: "$itens"
+    },
+    {
+        $group: {
+            _id: "$_id",
+            itens: {
+                $push: "$itens.quantidade"
+            },
+            valorTotal: {
+                $push: {$multiply: ["$itens.quantidade", "$itens.precoUnitario"]}
+            },
+            valorTotalDesconto: {
+                $push: {$multiply: ["$itens.quantidade", "$itens.valorDesconto"]}
+            }
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            pedido_id: "$_id",
+            itens: {
+                $sum: "$itens"
+            },
+            valorTotal: {
+                $sum: "$valorTotal"
+            },
+            valorTotalDesconto: {
+                $sum: "$valorTotalDesconto"
+            }
+        }
+    }
+])
