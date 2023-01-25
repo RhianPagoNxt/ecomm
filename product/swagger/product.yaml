@@ -94,6 +94,105 @@ paths:
           content:
             application/json:
               example: "Internal Server Error"
+  /api/admin/categories/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: "63caa785ae701b25441ff0be"
+    put:
+      tags:
+      - Categories
+      summary: Atualiza todas as informações de uma categoria pelo ID. Método somente autorizado à administradores
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoriesWithoutId"
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriesWithId"
+        404:
+          description: Categoria não encontrada
+          content:
+            application/json:
+              example: "Not found"
+        401:
+          description: Desautorizado
+          content: 
+            aplication/json:
+              example: "Acesso Negado! Usuário desautorizado"
+        500:
+          description: Erro Interno
+          content:
+            application/json:
+              example: "Internal Server Error"
+    delete:
+      tags:
+      - Categories
+      summary: Deleta uma categoria pelo ID. Método somente autorizado à administradores
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductsWithId"
+        404:
+          description: Categoria não encontrada
+          content:
+            application/json:
+              example: "Not found"
+        401:
+          description: Desautorizado
+          content: 
+            aplication/json:
+              example: "Acesso Negado! Usuário desautorizado"
+        500:
+          description: Erro Interno
+          content:
+            application/json:
+              example: "Internal Server Error"
+    patch:
+      tags:
+      - Categories
+      summary: Atualiza o status de uma categoria pelo ID. Método somente autorizado à administradores
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriesWithId"
+        404:
+          description: Categoria não encontrada
+          content:
+            application/json:
+              example: "Not found"
+        401:
+          description: Desautorizado
+          content: 
+            aplication/json:
+              example: "Acesso Negado! Usuário desautorizado"
+        500:
+          description: Erro Interno
+          content:
+            application/json:
+              example: "Internal Server Error"
 components:
   schemas:
     CategoriesWithId:
