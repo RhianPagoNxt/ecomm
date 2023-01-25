@@ -193,6 +193,182 @@ paths:
           content:
             application/json:
               example: "Internal Server Error"
+  /api/products:
+    get:
+      tags:
+      - Products
+      summary: Lista todos os produtos
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ProductsWithId"
+        404:
+          description: Não há nenhum produto cadastrado
+          content:
+            application/json:
+              example: "Not found"
+        500:
+          description: Erro Interno
+          content:
+            application/json:
+              example: "Internal Server Error"
+  /api/products/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: "63caa785ae701b25441ff0be"
+    get:
+      tags:
+      - Products
+      summary: Recupera um produto pelo ID
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductsWithId"
+        404:
+          description: Produto não encontrado
+          content:
+            application/json:
+              example: "Not found"
+        500:
+          description: Erro Interno
+          content:
+            application/json:
+              example: "Internal Server Error"
+  /api/admin/products:
+    post:
+      tags:
+      - Products
+      summary: Cria um novo produto. Método somente autorizado à administradores
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductsWithoutId"
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductsWithId"
+        401:
+          description: Desautorizado
+          content: 
+            aplication/json:
+              example: "Acesso Negado! Usuário desautorizado"
+        500:
+          description: Erro Interno
+          content:
+            application/json:
+              example: "Internal Server Error"
+  /api/admin/products/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: "63caa785ae701b25441ff0be"
+    put:
+      tags:
+      - Products
+      summary: Atualiza todas as informações de um produto pelo ID. Método somente autorizado à administradores
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductsWithoutId"
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductsWithId"
+        404:
+          description: Produto não encontrado
+          content:
+            application/json:
+              example: "Not found"
+        401:
+          description: Desautorizado
+          content: 
+            aplication/json:
+              example: "Acesso Negado! Usuário desautorizado"
+        500:
+          description: Erro Interno
+          content:
+            application/json:
+              example: "Internal Server Error"
+    patch:
+      tags:
+      - Products
+      summary: Atualiza algumas informações de um produto pelo ID. Método somente autorizado à administradores
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductsWithoutId"
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductsWithId"
+        404:
+          description: Produto não encontrado
+          content:
+            application/json:
+              example: "Not found"
+        401:
+          description: Desautorizado
+          content: 
+            aplication/json:
+              example: "Acesso Negado! Usuário desautorizado"
+        500:
+          description: Erro Interno
+          content:
+            application/json:
+              example: "Internal Server Error"
+    delete:
+      tags:
+      - Products
+      summary: Deleta um produto pelo ID. Método somente autorizado à administradores
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductsWithId"
+        404:
+          description: Produto não encontrado
+          content:
+            application/json:
+              example: "Not found"
+        401:
+          description: Desautorizado
+          content: 
+            aplication/json:
+              example: "Acesso Negado! Usuário desautorizado"
+        500:
+          description: Erro Interno
+          content:
+            application/json:
+              example: "Internal Server Error"
 components:
   schemas:
     CategoriesWithId:
@@ -211,3 +387,47 @@ components:
           type: string
         status:
           type: string
+    ProductsWithId:
+      type: object
+      properties:
+        id:
+          type: string
+        nome:
+          type: string
+        descricao:
+          type: string
+        slug:
+          type: string
+        precoUnitario:
+          type: number
+          format: double
+        qntdEstoque:
+          type: integer
+        categoria:
+          type: object
+          properties:
+            categoria_id:
+              type: string
+            nome:
+              type: string
+    ProductsWithoutId:
+      type: object
+      properties:
+        nome:
+          type: string
+        descricao:
+          type: string
+        slug:
+          type: string
+        precoUnitario:
+          type: number
+          format: double
+        qntdEstoque:
+          type: integer
+        categoria:
+          type: object
+          properties:
+            categoria_id:
+              type: string
+            nome:
+              type: string
