@@ -1,0 +1,51 @@
+openapi: 3.0.3
+info:
+  title: Ecomm - API Products
+  description: API para consultar, adicionar, atualizar e remover categorias e produtos
+  version: 1.0.0
+  termsOfService: https://mockapi.io/docs
+  contact:
+    name: Rhian Moura
+    email: rhian.moura@pagonxt.com
+  license:
+    name: Licença Pública
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+servers:
+- url: https://63ced172fdfe2764c72b1707.mockapi.io/
+  description: API Products
+paths:
+  /api/categories:
+    get:
+      tags:
+      - Categories
+      summary: Lista todas as categorias
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CategoriesWithId"
+        404:
+          description: Não há nenhuma categoria cadastrada
+          content:
+            application/json:
+              example: "Not found"
+        500:
+          description: Erro Interno
+          content:
+            application/json:
+              example: "Internal Server Error"
+components:
+  schemas:
+    CategoriesWithId:
+      type: object
+      properties:
+        id:
+          type: string
+        catgeoria:
+          type: string
+        status:
+          type: string
