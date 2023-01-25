@@ -38,6 +38,35 @@ paths:
           content:
             application/json:
               example: "Internal Server Error"
+  /api/categories/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: "63caa785ae701b25441ff0be"
+    get:
+      tags:
+      - Categories
+      summary: Recupera uma categoria pelo ID
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriesWithId"
+        404:
+          description: Categoria não encontrada
+          content:
+            application/json:
+              example: "Not found"
+        500:
+          description: Erro Interno
+          content:
+            application/json:
+              example: "Internal Server Error"
   /api/admin/categories:
     post:
       tags:
