@@ -38,6 +38,33 @@ paths:
           content:
             application/json:
               example: "Internal Server Error"
+  /api/admin/categories:
+    post:
+      tags:
+      - Categories
+      summary: Cria uma nova categoria. Método somente autorizado à administradores
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoriesWithoutId"
+      responses:
+        201:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriesWithId"
+        401:
+          description: Desautorizado
+          content: 
+            aplication/json:
+              example: "Acesso Negado! Usuário desautorizado"
+        500:
+          description: Erro Interno
+          content:
+            application/json:
+              example: "Internal Server Error"
 components:
   schemas:
     CategoriesWithId:
@@ -46,6 +73,13 @@ components:
         id:
           type: string
         catgeoria:
+          type: string
+        status:
+          type: string
+    CategoriesWithoutId:
+      type: object
+      properties:
+        categoria:
           type: string
         status:
           type: string
