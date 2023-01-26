@@ -27,17 +27,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/UsersWithId"
-        404:
-          description: Não há nenhum usuário cadastrado
-          content:
-            application/json:
-              example: "Not found"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
+                  $ref: "#/components/schemas/User"
   /api/users/{id}:
     parameters:
       - name: id
@@ -56,17 +46,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UsersWithId"
+                $ref: "#/components/schemas/User"
         404:
           description: Usuário não encontrado
           content:
             application/json:
               example: "Not found"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
   /api/admin/users:
     post:
       tags:
@@ -76,24 +61,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UsersWithoutId"
+              $ref: "#/components/schemas/User"
       responses:
         201:
-          description: Sucesso
+          description: Usuário criado com sucesso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UsersWithId"
+                $ref: "#/components/schemas/User"
         401:
           description: Desautorizado
           content: 
             aplication/json:
               example: "Acesso Negado! Usuário desautorizado"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
   /api/admin/users/{id}:
     parameters:
       - name: id
@@ -105,19 +85,19 @@ paths:
     put:
       tags:
       - Users
-      summary: Atualiza todas as informações de um usuário pelo ID. Método somente autorizado à administradores
+      summary: Atualiza as informações de um usuário pelo ID. Método somente autorizado à administradores
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UsersWithoutId"
+              $ref: "#/components/schemas/User"
       responses:
         200:
           description: Sucesso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UsersWithId"
+                $ref: "#/components/schemas/User"
         404:
           description: Usuário não encontrado
           content:
@@ -128,42 +108,6 @@ paths:
           content: 
             aplication/json:
               example: "Acesso Negado! Usuário desautorizado"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
-    patch:
-      tags:
-      - Users
-      summary: Atualiza algumas informações de um usuário pelo ID. Método somente autorizado à administradores
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UsersWithoutId"
-      responses:
-        200:
-          description: Sucesso
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UsersWithId"
-        404:
-          description: Usuário não encontrado
-          content:
-            application/json:
-              example: "Not found"
-        401:
-          description: Desautorizado
-          content: 
-            aplication/json:
-              example: "Acesso Negado! Usuário desautorizado"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
     delete:
       tags:
       - Users
@@ -174,7 +118,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/UsersWithId"
+                $ref: "#/components/schemas/User"
         404:
           description: Usuário não encontrado
           content:
@@ -185,46 +129,14 @@ paths:
           content: 
             aplication/json:
               example: "Acesso Negado! Usuário desautorizado"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
 components:
   schemas:
-    UsersWithId:
+    User:
       type: object
       properties:
         id:
           type: string
-        nome:
-          type: string
-        email:
-          type: string
-        senha:
-          type: string
-        cpf:
-          type: string
-        telefone:
-          type: string
-        endereco:
-          type: object
-          properties:
-            rua:
-              type: string
-            numero:
-              type: string
-            complemento:
-              type: string
-            cep:
-              type: string
-            cidade:
-              type: string
-            estado:
-              type: string
-    UsersWithoutId:
-      type: object
-      properties:
+          format: uuid
         nome:
           type: string
         email:

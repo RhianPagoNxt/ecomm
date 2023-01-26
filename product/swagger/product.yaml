@@ -27,17 +27,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/CategoriesWithId"
-        404:
-          description: Não há nenhuma categoria cadastrada
-          content:
-            application/json:
-              example: "Not found"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
+                  $ref: "#/components/schemas/Category"
   /api/categories/{id}:
     parameters:
       - name: id
@@ -56,17 +46,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CategoriesWithId"
+                $ref: "#/components/schemas/Category"
         404:
           description: Categoria não encontrada
           content:
             application/json:
               example: "Not found"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
   /api/admin/categories:
     post:
       tags:
@@ -76,24 +61,22 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CategoriesWithoutId"
+              type: object
+              properties:
+                nome:
+                  type: string
       responses:
         201:
-          description: Sucesso
+          description: Categoria criada com sucesso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CategoriesWithId"
+                $ref: "#/components/schemas/Category"
         401:
           description: Desautorizado
           content: 
             aplication/json:
               example: "Acesso Negado! Usuário desautorizado"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
   /api/admin/categories/{id}:
     parameters:
       - name: id
@@ -110,14 +93,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CategoriesWithoutId"
+              $ref: "#/components/schemas/Category"
       responses:
         200:
           description: Sucesso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CategoriesWithId"
+                $ref: "#/components/schemas/Category"
         404:
           description: Categoria não encontrada
           content:
@@ -128,11 +111,6 @@ paths:
           content: 
             aplication/json:
               example: "Acesso Negado! Usuário desautorizado"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
     delete:
       tags:
       - Categories
@@ -143,7 +121,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ProductsWithId"
+                $ref: "#/components/schemas/Category"
         404:
           description: Categoria não encontrada
           content:
@@ -154,30 +132,17 @@ paths:
           content: 
             aplication/json:
               example: "Acesso Negado! Usuário desautorizado"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
     patch:
       tags:
       - Categories
-      summary: Atualiza o status de uma categoria pelo ID. Método somente autorizado à administradores
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                status:
-                  type: string
+      summary: Ativa o status de uma categoria pelo ID. Método somente autorizado à administradores
       responses:
         200:
           description: Sucesso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/CategoriesWithId"
+                $ref: "#/components/schemas/Category"
         404:
           description: Categoria não encontrada
           content:
@@ -188,16 +153,35 @@ paths:
           content: 
             aplication/json:
               example: "Acesso Negado! Usuário desautorizado"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
   /api/products:
     get:
       tags:
       - Products
       summary: Lista todos os produtos
+      parameters:
+        - name: valorMin
+          in: query
+          description: Valor mínimo dos produtos
+          schema: 
+            type: number
+            format: double
+        - name: valorMax
+          in: query
+          description: Valor máximo dos produtos
+          schema: 
+            type: number
+            format: double
+        - name: categoria_id
+          in: query
+          description: Produtos da categoria especificada
+          schema: 
+            type: string
+            format: uuid
+        - name: qntdEstoqueMin
+          in: query
+          description: Produtos com quantidade superior à especificada
+          schema: 
+            type: integer
       responses:
         200:
           description: Sucesso
@@ -206,17 +190,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/ProductsWithId"
-        404:
-          description: Não há nenhum produto cadastrado
-          content:
-            application/json:
-              example: "Not found"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
+                  $ref: "#/components/schemas/Product"
   /api/products/{id}:
     parameters:
       - name: id
@@ -235,17 +209,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ProductsWithId"
+                $ref: "#/components/schemas/Product"
         404:
           description: Produto não encontrado
           content:
             application/json:
               example: "Not found"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
   /api/admin/products:
     post:
       tags:
@@ -255,24 +224,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ProductsWithoutId"
+              $ref: "#/components/schemas/Product"
       responses:
         201:
-          description: Sucesso
+          description: Produto criado com sucesso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ProductsWithId"
+                $ref: "#/components/schemas/Product"
         401:
           description: Desautorizado
           content: 
             aplication/json:
               example: "Acesso Negado! Usuário desautorizado"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
   /api/admin/products/{id}:
     parameters:
       - name: id
@@ -284,19 +248,19 @@ paths:
     put:
       tags:
       - Products
-      summary: Atualiza todas as informações de um produto pelo ID. Método somente autorizado à administradores
+      summary: Atualiza as informações de um produto pelo ID. Método somente autorizado à administradores
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/ProductsWithoutId"
+              $ref: "#/components/schemas/Product"
       responses:
         200:
           description: Sucesso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ProductsWithId"
+                $ref: "#/components/schemas/Product"
         404:
           description: Produto não encontrado
           content:
@@ -307,42 +271,6 @@ paths:
           content: 
             aplication/json:
               example: "Acesso Negado! Usuário desautorizado"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
-    patch:
-      tags:
-      - Products
-      summary: Atualiza algumas informações de um produto pelo ID. Método somente autorizado à administradores
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ProductsWithoutId"
-      responses:
-        200:
-          description: Sucesso
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ProductsWithId"
-        404:
-          description: Produto não encontrado
-          content:
-            application/json:
-              example: "Not found"
-        401:
-          description: Desautorizado
-          content: 
-            aplication/json:
-              example: "Acesso Negado! Usuário desautorizado"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
     delete:
       tags:
       - Products
@@ -353,7 +281,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ProductsWithId"
+                $ref: "#/components/schemas/Product"
         404:
           description: Produto não encontrado
           content:
@@ -364,34 +292,24 @@ paths:
           content: 
             aplication/json:
               example: "Acesso Negado! Usuário desautorizado"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
 components:
   schemas:
-    CategoriesWithId:
+    Category:
       type: object
       properties:
         id:
           type: string
+          format: uuid
         catgeoria:
           type: string
         status:
           type: string
-    CategoriesWithoutId:
-      type: object
-      properties:
-        categoria:
-          type: string
-        status:
-          type: string
-    ProductsWithId:
+    Product:
       type: object
       properties:
         id:
           type: string
+          format: uuid
         nome:
           type: string
         descricao:
@@ -403,31 +321,6 @@ components:
           format: double
         qntdEstoque:
           type: integer
-        categoria:
-          type: object
-          properties:
-            categoria_id:
-              type: string
-            nome:
-              type: string
-    ProductsWithoutId:
-      type: object
-      properties:
-        nome:
+        categoria_id:
           type: string
-        descricao:
-          type: string
-        slug:
-          type: string
-        precoUnitario:
-          type: number
-          format: double
-        qntdEstoque:
-          type: integer
-        categoria:
-          type: object
-          properties:
-            categoria_id:
-              type: string
-            nome:
-              type: string
+          format: uuid

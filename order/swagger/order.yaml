@@ -23,19 +23,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/OrdersWithoutId"
+              $ref: "#/components/schemas/Order"
       responses:
         201:
-          description: Sucesso
+          description: Pedido criado com sucesso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OrdersWithId"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
+                $ref: "#/components/schemas/OrderAnswer"
   /api/orders/{id}:
     parameters:
       - name: id
@@ -54,33 +49,23 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/OrdersWithId"
+                $ref: "#/components/schemas/OrderAnswer"
         404:
           description: Pedido não encontrado
           content:
             application/json:
               example: "Not found"
-        500:
-          description: Erro Interno
-          content:
-            application/json:
-              example: "Internal Server Error"
 components:
   schemas:
-    OrdersWithId:
+    Order:
       type: object
       properties:
         id:
           type: string
-        cliente:
-          type: object
-          properties:
-            cliente_id:
-              type: string
-            nome:
-              type: string
-            cpf:
-              type: string
+          format: uuid
+        cliente_id:
+          type: string
+          format: uuid
         enderecoEntrega:
           type: object
           properties:
@@ -103,6 +88,7 @@ components:
             properties:
               produto_id:
                 type: string
+                format: uuid
               nomeProduto:
                 type: string
               quantidade:
@@ -113,18 +99,15 @@ components:
               precoUnitario:
                 type: number
                 format: double
-    OrdersWithoutId:
+    OrderAnswer:
       type: object
       properties:
-        cliente:
-          type: object
-          properties:
-            cliente_id:
-              type: string
-            nome:
-              type: string
-            cpf:
-              type: string
+        id:
+          type: string
+          format: uuid
+        cliente_id:
+          type: string
+          format: uuid
         enderecoEntrega:
           type: object
           properties:
@@ -140,6 +123,9 @@ components:
               type: string
             estado:
               type: string
+        data:
+          type: string
+          format: date-time
         itens:
           type: array
           items:
@@ -147,6 +133,7 @@ components:
             properties:
               produto_id:
                 type: string
+                format: uuid
               nomeProduto:
                 type: string
               quantidade:
