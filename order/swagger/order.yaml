@@ -1,0 +1,146 @@
+openapi: 3.0.3
+info:
+  title: Ecomm - API Orders
+  description: API para consultar e adicionar pedidos
+  version: 1.0.0
+  termsOfService: https://mockapi.io/docs
+  contact:
+    name: Rhian Moura
+    email: rhian.moura@pagonxt.com
+  license:
+    name: Licença Pública
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+servers:
+- url: https://63ced172fdfe2764c72b1707.mockapi.io/
+  description: API Orders
+paths:
+  /api/orders:
+    post:
+      tags:
+      - Orders
+      summary: Cria um novo pedido
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Order"
+      responses:
+        201:
+          description: Pedido criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderAnswer"
+  /api/orders/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: "63caa785ae701b25441ff0be"
+    get:
+      tags:
+      - Orders
+      summary: Recupera pedido pelo ID
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderAnswer"
+        404:
+          description: Pedido não encontrado
+          content:
+            application/json:
+              example: "Not found"
+components:
+  schemas:
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        cliente_id:
+          type: string
+          format: uuid
+        enderecoEntrega:
+          type: object
+          properties:
+            rua:
+              type: string
+            numero:
+              type: string
+            complemento:
+              type: string
+            cep:
+              type: string
+            cidade:
+              type: string
+            estado:
+              type: string
+        itens:
+          type: array
+          items:
+            type: object
+            properties:
+              produto_id:
+                type: string
+                format: uuid
+              nomeProduto:
+                type: string
+              quantidade:
+                type: integer
+              valorDesconto:
+                type: number
+                format: double
+              precoUnitario:
+                type: number
+                format: double
+    OrderAnswer:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        cliente_id:
+          type: string
+          format: uuid
+        enderecoEntrega:
+          type: object
+          properties:
+            rua:
+              type: string
+            numero:
+              type: string
+            complemento:
+              type: string
+            cep:
+              type: string
+            cidade:
+              type: string
+            estado:
+              type: string
+        data:
+          type: string
+          format: date-time
+        itens:
+          type: array
+          items:
+            type: object
+            properties:
+              produto_id:
+                type: string
+                format: uuid
+              nomeProduto:
+                type: string
+              quantidade:
+                type: integer
+              valorDesconto:
+                type: number
+                format: double
+              precoUnitario:
+                type: number
+                format: double

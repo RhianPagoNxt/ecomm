@@ -1,0 +1,164 @@
+openapi: 3.0.3
+info:
+  title: Ecomm - API Users
+  description: API para consultar, adicionar, atualizar e remover usuários
+  version: 1.0.0
+  termsOfService: https://mockapi.io/docs
+  contact:
+    name: Rhian Moura
+    email: rhian.moura@pagonxt.com
+  license:
+    name: Licença Pública
+    url: https://www.gnu.org/licenses/gpl-3.0.html
+servers:
+- url: https://63ced172fdfe2764c72b1707.mockapi.io/
+  description: API Users
+paths:
+  /api/users:
+    get:
+      tags:
+      - Users
+      summary: Lista todos os usuários
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+  /api/users/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: "63caa785ae701b25441ff0be"
+    get:
+      tags:
+      - Users
+      summary: Recupera um usuário pelo ID
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        404:
+          description: Usuário não encontrado
+          content:
+            application/json:
+              example: "Not found"
+  /api/admin/users:
+    post:
+      tags:
+      - Users
+      summary: Cria um novo usuário. Método somente autorizado à administradores
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        201:
+          description: Usuário criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        401:
+          description: Desautorizado
+          content: 
+            aplication/json:
+              example: "Acesso Negado! Usuário desautorizado"
+  /api/admin/users/{id}:
+    parameters:
+      - name: id
+        in: path
+        schema:
+          type: string
+        required: true
+        example: "63caa785ae701b25441ff0be"
+    put:
+      tags:
+      - Users
+      summary: Atualiza as informações de um usuário pelo ID. Método somente autorizado à administradores
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        404:
+          description: Usuário não encontrado
+          content:
+            application/json:
+              example: "Not found"
+        401:
+          description: Desautorizado
+          content: 
+            aplication/json:
+              example: "Acesso Negado! Usuário desautorizado"
+    delete:
+      tags:
+      - Users
+      summary: Deleta um usuário pelo ID. Método somente autorizado à administradores
+      responses:
+        200:
+          description: Sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        404:
+          description: Usuário não encontrado
+          content:
+            application/json:
+              example: "Not found"
+        401:
+          description: Desautorizado
+          content: 
+            aplication/json:
+              example: "Acesso Negado! Usuário desautorizado"
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        nome:
+          type: string
+        email:
+          type: string
+        senha:
+          type: string
+        cpf:
+          type: string
+        telefone:
+          type: string
+        endereco:
+          type: object
+          properties:
+            rua:
+              type: string
+            numero:
+              type: string
+            complemento:
+              type: string
+            cep:
+              type: string
+            cidade:
+              type: string
+            estado:
+              type: string
