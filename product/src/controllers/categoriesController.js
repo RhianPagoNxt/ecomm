@@ -19,7 +19,7 @@ class CategoryController {
         });
     }
 
-    static addCategories = (req, res) => {
+    static addCategory = (req, res) => {
         let category = new categories(req.body);
 
         category.save((err) => {
@@ -40,7 +40,7 @@ class CategoryController {
             if(err) {
                 res.status(400).send({message: `${err.message} - Falha na atualização da categoria, informe um ID correto!`});
             } else if (JSON.stringify(req.body) === "{}") {
-                res.status(400).send({message: `Falha na atualização da categoria, informe os parâmetros corretos!`});
+                res.status(400).send({message: "Falha na atualização da categoria, informe os parâmetros corretos!"});
             } else if (!err) {
                 res.status(200).send({message: "Categoria atualizada com sucesso!"})
             } else {
@@ -71,7 +71,7 @@ class CategoryController {
             if(err) {
                 res.status(400).send({message: `${err.message} - Falha na atualização do status da categoria, informe um ID correto!`});
             } else if (JSON.stringify(req.body) === "{}") {
-                res.status(400).send({message: `Falha na atualização do status da categoria, informe os parâmetros corretos!`});
+                res.status(400).send({message: "Falha na atualização do status da categoria, informe os parâmetros corretos!"});
             } else if (!err) {
                 res.status(200).send({message: "Categoria atualizada com sucesso!"})
             } else {
