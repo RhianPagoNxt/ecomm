@@ -1,6 +1,6 @@
 use ("ecomm-account")
 
-db.users.aggregate([
+db.accounts.aggregate([
     {
         $match: {
             nome: "Josué Lima"

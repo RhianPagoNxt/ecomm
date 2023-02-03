@@ -14,7 +14,7 @@ servers:
 - url: https://63ced172fdfe2764c72b1707.mockapi.io/
   description: API Users
 paths:
-  /api/users:
+  /api/admin/users:
     get:
       tags:
       - Users
@@ -28,6 +28,27 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/User"
+    post:
+      tags:
+      - Users
+      summary: Cria um novo usuário. Método somente autorizado à administradores
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        201:
+          description: Usuário criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        401:
+          description: Desautorizado
+          content: 
+            aplication/json:
+              example: "Acesso Negado! Usuário desautorizado"
   /api/users/{id}:
     parameters:
       - name: id
@@ -52,28 +73,6 @@ paths:
           content:
             application/json:
               example: "Not found"
-  /api/admin/users:
-    post:
-      tags:
-      - Users
-      summary: Cria um novo usuário. Método somente autorizado à administradores
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/User"
-      responses:
-        201:
-          description: Usuário criado com sucesso
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-        401:
-          description: Desautorizado
-          content: 
-            aplication/json:
-              example: "Acesso Negado! Usuário desautorizado"
   /api/admin/users/{id}:
     parameters:
       - name: id

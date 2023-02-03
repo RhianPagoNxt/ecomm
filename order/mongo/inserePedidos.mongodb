@@ -1,6 +1,6 @@
 use ("ecomm-account")
 
-db.users.aggregate([
+db.accounts.aggregate([
     {
         $match: {
             nome: "Rhian Moura"
@@ -61,7 +61,7 @@ db.orders.updateOne(
 
 use ("ecomm-account")
 
-db.users.aggregate([
+db.accounts.aggregate([
     {
         $match: {
             nome: "Bia Ferreira"
