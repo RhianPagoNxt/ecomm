@@ -1,5 +1,7 @@
 import express from "express";
 import ProductController from "../controllers/productsController.js";
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from '../../swagger/product.json' assert { type: "json" };
 
 const router = express.Router();
 
@@ -9,5 +11,8 @@ router
     .post("/api/admin/products", ProductController.addProduct)
     .put("/api/admin/products/:id", ProductController.updateProductById)
     .delete("/api/admin/products/:id", ProductController.deleteProductById)
+
+    .use('/api-docs', swaggerUi.serve)
+    .get('/api-docs', swaggerUi.setup(swaggerDocument));
     
 export default router;

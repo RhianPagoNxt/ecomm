@@ -1,0 +1,263 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Ecomm - API Accounts",
+    "description": "API para consultar, adicionar, atualizar e remover usuários",
+    "version": "1.0.0",
+    "termsOfService": "https://mockapi.io/docs",
+    "contact": {
+      "name": "Rhian Moura",
+      "email": "rhian.moura@pagonxt.com"
+    },
+    "license": {
+      "name": "Licença Pública",
+      "url": "https://www.gnu.org/licenses/gpl-3.0.html"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://63ced172fdfe2764c72b1707.mockapi.io/",
+      "description": "API Accounts"
+    }
+  ],
+  "paths": {
+    "/api/admin/accounts": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Lista todos os usuários",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Account"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Cria um novo usuário. Método somente autorizado à administradores",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Account"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Desautorizado",
+            "content": {
+              "aplication/json": {
+                "example": "Acesso Negado! Usuário desautorizado"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/accounts/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "schema": {
+            "type": "string"
+          },
+          "required": true,
+          "example": "63caa785ae701b25441ff0be"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Recupera um usuário pelo ID",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Not found"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/accounts/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "schema": {
+            "type": "string"
+          },
+          "required": true,
+          "example": "63caa785ae701b25441ff0be"
+        }
+      ],
+      "put": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Atualiza as informações de um usuário pelo ID. Método somente autorizado à administradores",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Account"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Desautorizado",
+            "content": {
+              "aplication/json": {
+                "example": "Acesso Negado! Usuário desautorizado"
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Not found"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Deleta um usuário pelo ID. Método somente autorizado à administradores",
+        "responses": {
+          "200": {
+            "description": "Sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Account"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Desautorizado",
+            "content": {
+              "aplication/json": {
+                "example": "Acesso Negado! Usuário desautorizado"
+              }
+            }
+          },
+          "404": {
+            "description": "Usuário não encontrado",
+            "content": {
+              "application/json": {
+                "example": "Not found"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Account": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nome": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "senha": {
+            "type": "string"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "telefone": {
+            "type": "string"
+          },
+          "endereco": {
+            "type": "object",
+            "properties": {
+              "rua": {
+                "type": "string"
+              },
+              "numero": {
+                "type": "string"
+              },
+              "complemento": {
+                "type": "string"
+              },
+              "cep": {
+                "type": "string"
+              },
+              "cidade": {
+                "type": "string"
+              },
+              "estado": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Ecomm - API Users
+  title: Ecomm - API Accounts
   description: API para consultar, adicionar, atualizar e remover usuários
   version: 1.0.0
   termsOfService: https://mockapi.io/docs
@@ -12,12 +12,12 @@ info:
     url: https://www.gnu.org/licenses/gpl-3.0.html
 servers:
 - url: https://63ced172fdfe2764c72b1707.mockapi.io/
-  description: API Users
+  description: API Accounts
 paths:
-  /api/admin/users:
+  /api/admin/accounts:
     get:
       tags:
-      - Users
+      - Accounts
       summary: Lista todos os usuários
       responses:
         200:
@@ -27,29 +27,29 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/User"
+                  $ref: "#/components/schemas/Account"
     post:
       tags:
-      - Users
+      - Accounts
       summary: Cria um novo usuário. Método somente autorizado à administradores
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/User"
+              $ref: "#/components/schemas/Account"
       responses:
         201:
           description: Usuário criado com sucesso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: "#/components/schemas/Account"
         401:
           description: Desautorizado
           content: 
             aplication/json:
               example: "Acesso Negado! Usuário desautorizado"
-  /api/users/{id}:
+  /api/accounts/{id}:
     parameters:
       - name: id
         in: path
@@ -59,7 +59,7 @@ paths:
         example: "63caa785ae701b25441ff0be"
     get:
       tags:
-      - Users
+      - Accounts
       summary: Recupera um usuário pelo ID
       responses:
         200:
@@ -67,13 +67,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: "#/components/schemas/Account"
         404:
           description: Usuário não encontrado
           content:
             application/json:
               example: "Not found"
-  /api/admin/users/{id}:
+  /api/admin/accounts/{id}:
     parameters:
       - name: id
         in: path
@@ -83,20 +83,20 @@ paths:
         example: "63caa785ae701b25441ff0be"
     put:
       tags:
-      - Users
+      - Accounts
       summary: Atualiza as informações de um usuário pelo ID. Método somente autorizado à administradores
       requestBody:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/User"
+              $ref: "#/components/schemas/Account"
       responses:
         200:
           description: Sucesso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: "#/components/schemas/Account"
         404:
           description: Usuário não encontrado
           content:
@@ -109,7 +109,7 @@ paths:
               example: "Acesso Negado! Usuário desautorizado"
     delete:
       tags:
-      - Users
+      - Accounts
       summary: Deleta um usuário pelo ID. Método somente autorizado à administradores
       responses:
         200:
@@ -117,7 +117,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/User"
+                $ref: "#/components/schemas/Account"
         404:
           description: Usuário não encontrado
           content:
@@ -130,7 +130,7 @@ paths:
               example: "Acesso Negado! Usuário desautorizado"
 components:
   schemas:
-    User:
+    Account:
       type: object
       properties:
         id:
