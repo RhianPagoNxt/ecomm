@@ -23,9 +23,7 @@ class AccountController {
         let account = new accounts(req.body);
 
         account.save((err) => {
-            if(err) {
-                res.status(400).send({message: `${err.message} - Falha no cadastro do usuário, informe os parâmetros corretos!`});
-            } else if (!err) {
+            if (!err) {
                 res.status(201).send(account.toJSON());
             } else {
                 res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
@@ -38,9 +36,7 @@ class AccountController {
 
         accounts.findByIdAndUpdate(id, {$set: req.body}, (err) => {
             if(err) {
-                res.status(400).send({message: `${err.message} - Falha na atualização do usuário, informe um ID correto!`});
-            } else if (JSON.stringify(req.body) === "{}") {
-                res.status(400).send({message: "Falha na atualização do usuário, informe os parâmetros corretos!"});
+                res.status(400).send({message: "Ação não concluída. Informe um ID correto!"});
             } else if (!err) {
                 res.status(200).send({message: "Usuário atualizado com sucesso!"})
             } else {

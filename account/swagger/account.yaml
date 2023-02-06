@@ -49,7 +49,7 @@ paths:
           content: 
             aplication/json:
               example: "Acesso Negado! Usuário desautorizado"
-  /api/accounts/{id}:
+  /api/admin/accounts/{id}:
     parameters:
       - name: id
         in: path
@@ -73,14 +73,6 @@ paths:
           content:
             application/json:
               example: "Not found"
-  /api/admin/accounts/{id}:
-    parameters:
-      - name: id
-        in: path
-        schema:
-          type: string
-        required: true
-        example: "63caa785ae701b25441ff0be"
     put:
       tags:
       - Accounts

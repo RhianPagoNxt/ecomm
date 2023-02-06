@@ -2,10 +2,9 @@ import mongoose from "mongoose";
 
 const categorySchema = new mongoose.Schema(
   {
-    id: { type: String },
+    id: {type: String},
     nome: { 
       type: String,
-      match: /^[^\d.,][^.,]{3,}/,
       required: true
     },
     status: { 

@@ -23,9 +23,7 @@ class CategoryController {
         let category = new categories(req.body);
 
         category.save((err) => {
-            if(err) {
-                res.status(400).send({message: `${err.message} - Falha no cadastro da categoria, informe os parâmetros corretos!`});
-            } else if (!err) {
+            if (!err) {
                 res.status(201).send(category.toJSON());
             } else {
                 res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
@@ -38,9 +36,7 @@ class CategoryController {
 
         categories.findByIdAndUpdate(id, {$set: req.body}, (err) => {
             if(err) {
-                res.status(400).send({message: `${err.message} - Falha na atualização da categoria, informe um ID correto!`});
-            } else if (JSON.stringify(req.body) === "{}") {
-                res.status(400).send({message: "Falha na atualização da categoria, informe os parâmetros corretos!"});
+                res.status(400).send({message: `${err.message} - Ação não concluída. Informe um ID correto!`});
             } else if (!err) {
                 res.status(200).send({message: "Categoria atualizada com sucesso!"})
             } else {

@@ -79,7 +79,7 @@
         }
       }
     },
-    "/api/accounts/{id}": {
+    "/api/admin/accounts/{id}": {
       "parameters": [
         {
           "name": "id",
@@ -116,20 +116,7 @@
             }
           }
         }
-      }
-    },
-    "/api/admin/accounts/{id}": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "schema": {
-            "type": "string"
-          },
-          "required": true,
-          "example": "63caa785ae701b25441ff0be"
-        }
-      ],
+      },
       "put": {
         "tags": [
           "Accounts"

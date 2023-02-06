@@ -27,9 +27,7 @@ class ProductController {
         let product = new products(req.body);
 
         product.save((err) => {
-            if(err) {
-                res.status(400).send({message: `${err.message} - Falha no cadastro do produto, informe os parâmetros corretos!`});
-            } else if (!err) {
+            if (!err) {
                 res.status(201).send(product.toJSON());
             } else {
                 res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
@@ -42,9 +40,7 @@ class ProductController {
 
         products.findByIdAndUpdate(id, {$set: req.body}, (err) => {
             if(err) {
-                res.status(400).send({message: `${err.message} - Falha na atualização do produto, informe um ID correto!`});
-            } else if (JSON.stringify(req.body) === "{}") {
-                res.status(400).send({message: "Falha na atualização do produto, informe os parâmetros corretos!"});
+                res.status(400).send({message: `${err.message} - Ação não concluída. Informe um ID correto!`});
             } else if (!err) {
                 res.status(200).send({message: "Produto atualizado com sucesso!"})
             } else {

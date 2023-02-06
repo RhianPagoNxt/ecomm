@@ -5,11 +5,17 @@
   "main": "test/createUserAccount.test.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon ../server.js Accounts",
-    "start": "node test/createUserAccount.test.js",
+    "start": "nodemon ../server.js Accounts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Rhian Moura",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3",
+    "joi": "^17.7.0",
+    "mongoose": "^6.2.6",
+    "nodemon": "^2.0.15",
+    "swagger-ui-express": "^4.6.0"
+  }
 }
