@@ -5,7 +5,8 @@
     "main": "src/main.js",
     "type": "module",
     "scripts": {
-      "start": "nodemon ../server.js Products",
+      "start": "node ../server.js Products",
+      "dev": "nodemon ../server.js Products",
       "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Wanderson Macêdo",

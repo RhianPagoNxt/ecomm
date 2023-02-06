@@ -5,7 +5,8 @@
   "main": "test/createUserAccount.test.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon ../server.js Accounts",
+    "start": "node ../server.js Accounts",
+    "dev": "nodemon ../server.js Accounts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
