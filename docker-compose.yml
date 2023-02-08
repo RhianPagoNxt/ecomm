@@ -11,7 +11,7 @@ services:
     image: ecomm-account
     build: ./account
 
-  mongo:
+  mongodb:
     container_name: mongo-ecomm
     image: mongo
     restart: always
