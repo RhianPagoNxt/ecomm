@@ -42,6 +42,9 @@ module.exports = (sequelize, DataTypes) => {
     },
   })
   Payments.associate = function(models) {
+    Payments.hasOne(models.Invoices, {
+      foreignKey: "payment_id"
+    })
   };
   return Payments;
 }
