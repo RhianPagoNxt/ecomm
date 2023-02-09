@@ -24,7 +24,7 @@ class AccountController {
 
         account.save((err) => {
             if (!err) {
-                res.status(201).send(account.toJSON());
+                res.status(201).set(`/accounts/${account.id}`).send(account.toJSON());
             } else {
                 res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
             }

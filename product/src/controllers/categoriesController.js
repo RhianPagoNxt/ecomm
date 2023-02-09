@@ -24,7 +24,7 @@ class CategoryController {
 
         category.save((err) => {
             if (!err) {
-                res.status(201).send(category.toJSON());
+                res.status(201).set(`/categories/${category.id}`).send(category.toJSON());
             } else {
                 res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
             }

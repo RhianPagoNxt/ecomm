@@ -28,7 +28,7 @@ class ProductController {
 
         product.save((err) => {
             if (!err) {
-                res.status(201).send(product.toJSON());
+                res.status(201).set(`/products/${product.id}`).send(product.toJSON());
             } else {
                 res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
             }

@@ -18,10 +18,22 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - mongoecomm:/data/db
+      - mongo-ecomm:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: secret
+      
+  mysql:
+    container_name: mysql-ecomm
+    image: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-ecomm:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
 
 volumes:
-  mongoecomm:
+  mongo-ecomm:
+  mysql-ecomm:
