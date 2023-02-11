@@ -28,7 +28,7 @@ class ProductController {
 
         product.save((err) => {
             if (!err) {
-                res.status(201).set(`/products/${product.id}`).send(product.toJSON());
+                res.status(201).set(`/api/admin/products/${product.id}`).send(product.toJSON());
             } else {
                 res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
             }
@@ -42,7 +42,7 @@ class ProductController {
             if(err) {
                 res.status(400).send({message: `${err.message} - Ação não concluída. Informe um ID correto!`});
             } else if (!err) {
-                res.status(200).send({message: "Produto atualizado com sucesso!"})
+                res.status(200).set('Location', `/api/admin/products/${id}`).send({message: "Produto atualizado com sucesso!"})
             } else {
                 res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
             }

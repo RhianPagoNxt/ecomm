@@ -24,7 +24,7 @@ class CategoryController {
 
         category.save((err) => {
             if (!err) {
-                res.status(201).set(`/categories/${category.id}`).send(category.toJSON());
+                res.status(201).set(`/api/admin/categories/${category.id}`).send(category.toJSON());
             } else {
                 res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
             }
@@ -38,7 +38,7 @@ class CategoryController {
             if(err) {
                 res.status(400).send({message: `${err.message} - Ação não concluída. Informe um ID correto!`});
             } else if (!err) {
-                res.status(200).send({message: "Categoria atualizada com sucesso!"})
+                res.status(200).set('Location', `/api/admin/categories/${id}`).send({message: "Categoria atualizada com sucesso!"})
             } else {
                 res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
             }
@@ -69,7 +69,7 @@ class CategoryController {
             } else if (JSON.stringify(req.body) === "{}") {
                 res.status(400).send({message: "Falha na atualização do status da categoria, informe os parâmetros corretos!"});
             } else if (!err) {
-                res.status(200).send({message: "Categoria atualizada com sucesso!"})
+                res.status(200).set('Location', `/api/admin/categories/${id}`).send({message: "Categoria atualizada com sucesso!"})
             } else {
                 res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
             }
