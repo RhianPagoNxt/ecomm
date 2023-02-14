@@ -3,7 +3,11 @@ import categories from "../models/Category.js";
 class CategoryController {
     static listCategories = (req, res) => {
         categories.find((err, allCategories) => {
-            res.status(200).json(allCategories);
+            if(err) {
+                res.status(500).send({message: "Erro no servidor."})
+            } else {
+                res.status(200).json(allCategories);
+            }
         })
     }
 
@@ -37,10 +41,8 @@ class CategoryController {
         categories.findByIdAndUpdate(id, {$set: req.body}, (err) => {
             if(err) {
                 res.status(400).send({message: `${err.message} - Ação não concluída. Informe um ID correto!`});
-            } else if (!err) {
-                res.status(200).set('Location', `/api/admin/categories/${id}`).send({message: "Categoria atualizada com sucesso!"})
             } else {
-                res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
+                res.status(200).set('Location', `/api/admin/categories/${id}`).send({message: "Categoria atualizada com sucesso!"})
             }
         });
     }
@@ -51,10 +53,8 @@ class CategoryController {
         categories.findByIdAndDelete(id, (err) => {
             if(err) {
                 res.status(400).send({message: `${err.message} - Falha ao encontrar ID da categoria, informe um ID correto!`});
-              } else if (!err) {
+            } else {
                 res.status(200).send({message: "Categoria apagada com sucesso!"});
-              } else {
-                res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
             }
         });
     }
@@ -68,10 +68,8 @@ class CategoryController {
                 res.status(400).send({message: `${err.message} - Falha na atualização do status da categoria, informe um ID correto!`});
             } else if (JSON.stringify(req.body) === "{}") {
                 res.status(400).send({message: "Falha na atualização do status da categoria, informe os parâmetros corretos!"});
-            } else if (!err) {
-                res.status(200).set('Location', `/api/admin/categories/${id}`).send({message: "Categoria atualizada com sucesso!"})
             } else {
-                res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
+                res.status(200).set('Location', `/api/admin/categories/${id}`).send({message: "Categoria atualizada com sucesso!"})
             }
         });
     }

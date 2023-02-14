@@ -43,9 +43,10 @@ const orderSchema = new mongoose.Schema(
                 required: true
             }
         },
-        itens: [
-
-        ]
+        itens: {
+            type: Array,
+            required: true
+        }
     }
 );
 

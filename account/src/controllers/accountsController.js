@@ -3,7 +3,11 @@ import accounts from "../models/Account.js";
 class AccountController {
     static listAccounts = (req, res) => {
         accounts.find((err, allAccounts) => {
-            res.status(200).json(allAccounts);
+            if(err) {
+                res.status(500).send({message: "Erro no servidor."});
+            } else {
+                res.status(200).json(allAccounts);
+            }
         })
     }
 
@@ -13,9 +17,9 @@ class AccountController {
         accounts.findById(id, (err, accountById) => {
             if(err) {
                 res.status(400).send({message: `${err.message} - Falha ao encontrar ID do usuário, informe um ID correto!`});
-              } else {
+            } else {
                 res.status(200).send(accountById);
-              }
+            }
         });
     }
 
@@ -37,10 +41,8 @@ class AccountController {
         accounts.findByIdAndUpdate(id, {$set: req.body}, (err) => {
             if(err) {
                 res.status(400).send({message: "Ação não concluída. Informe um ID correto!"});
-            } else if (!err) {
-                res.status(200).set('Location', `/api/admin/accounts/${id}`).send({message: "Usuário atualizado com sucesso!"})
             } else {
-                res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
+                res.status(200).set('Location', `/api/admin/accounts/${id}`).send({message: "Usuário atualizado com sucesso!"})
             }
         });
     }
@@ -51,11 +53,9 @@ class AccountController {
         accounts.findByIdAndDelete(id, (err) => {
             if(err) {
                 res.status(400).send({message: `${err.message} - Falha ao encontrar ID do usuário, informe um ID correto!`});
-              } else if (!err) {
-                res.status(200).send({message: "Usuário apagado com sucesso!"});
               } else {
-                res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
-            }
+                res.status(200).send({message: "Usuário apagado com sucesso!"});
+              }
         });
     }
 }
