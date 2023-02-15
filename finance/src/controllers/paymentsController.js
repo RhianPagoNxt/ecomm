@@ -26,10 +26,30 @@ class PaymentsController {
     const payment = {...req.body, status: 'CRIADO'};
     try {
       const newPayment = await db.Payments.create(payment);
+      const links =  [
+        {     
+          rel: "self",
+          method: "GET",
+          href: `http://localhost:3003/api/admin/payments/${newPayment.id}`
+        },
+        {     
+          rel: "confirmation",
+          method: "PATCH",
+          status: "CONFIRMADO",
+          href: `http://localhost:3003/api/admin/payments/${newPayment.id}`
+        },
+        {     
+          rel: "cancellation",
+          method: "PATCH",
+          status: "CANCELADO",
+          href: `http://localhost:3003/api/admin/payments/${newPayment.id}`
+        }
+      ];
       return res.status(201).set('Location', `/payments/${newPayment.id}`)
       .json({
         id: newPayment.id, 
-        status: newPayment.status
+        status: newPayment.status,
+        links: links
       });
     } catch (error) {
       return res.status(500).json(error.message);
@@ -39,6 +59,13 @@ class PaymentsController {
   static async updatePaymentStatus (req, res) {
     const { id } = req.params;
     const statusUpdate = req.body;
+    const links =  [
+      {     
+        rel: "self",
+        method: "GET",
+        href: `http://localhost:3003/api/admin/payments/${id}`
+      }
+    ];
     try {
       if(statusUpdate.status === "CONFIRMADO") {
         db.sequelize.transaction(async (t) => {
@@ -52,7 +79,7 @@ class PaymentsController {
             {transaction: t}
           );
           const updatedPayment = await db.Payments.findOne( { where: { id: Number(id) }});
-          return res.status(200).json(updatedPayment);
+          return res.status(200).json({...updatedPayment, links});
         })
       } else {
         await db.Payments.update(
