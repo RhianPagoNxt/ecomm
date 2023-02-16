@@ -28,7 +28,7 @@ class AccountController {
 
         account.save((err) => {
             if (!err) {
-                res.status(201).set(`/api/admin/accounts/${account.id}`).send(account.toJSON());
+                res.status(201).set(`/api/accounts/${account.id}`).send(account.toJSON());
             } else {
                 res.status(401).send({message: "Acesso negado! Usuário desautorizado"});
             }
@@ -42,7 +42,7 @@ class AccountController {
             if(err) {
                 res.status(400).send({message: "Ação não concluída. Informe um ID correto!"});
             } else {
-                res.status(200).set('Location', `/api/admin/accounts/${id}`).send({message: "Usuário atualizado com sucesso!"})
+                res.status(200).set('Location', `/api/accounts/${id}`).send({message: "Usuário atualizado com sucesso!"})
             }
         });
     }
