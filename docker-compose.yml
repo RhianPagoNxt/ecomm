@@ -5,15 +5,45 @@ services:
     container_name: product
     image: ecomm-product
     build: ./product
+    tty: true
+    ports:
+      - 3001:3001
+    depends_on:
+      - mongodb
 
   account:
     container_name: account
     image: ecomm-account
     build: ./account
+    tty: true
+    ports:
+      - 3002:3002
+    depends_on:
+      - mongodb
+
+  order:
+    container_name: order
+    image: ecomm-order
+    build: ./order
+    tty: true
+    ports:
+      - 3004:3004
+    depends_on:
+      - mongodb
+
+  finance:
+    container_name: finance
+    image: ecomm-finance
+    build: ./finance
+    tty: true
+    ports:
+      - 3003:3003
+    depends_on:
+      - mysql
 
   mongodb:
     container_name: mongo-ecomm
-    image: mongo
+    image: mongo:5.0.14
     restart: always
     ports:
       - 27017:27017

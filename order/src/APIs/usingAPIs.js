@@ -1,5 +1,5 @@
 async function useApiAccounts (id) {
-    const searchAccount = await fetch(`http://localhost:3002/api/admin/accounts/${id}`);
+    const searchAccount = await fetch(`http://localhost:3002/api/accounts/${id}`);
     const accountFound = await searchAccount.json();
     return accountFound;
 }
