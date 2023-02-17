@@ -63,6 +63,7 @@ services:
       - mysql-ecomm:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: ecomm_finance
 
 volumes:
   mongo-ecomm:

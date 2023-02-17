@@ -18,7 +18,7 @@ class PaymentsController {
         updatedAt: payment.updatedAt
       })
     } catch (error) {
-      return res.status(500).json(error.message);
+      return res.status(400).json({message: `${err.message} - Falha ao encontrar ID do pagamento, informe um ID correto!`});
     }
   }
 
@@ -45,14 +45,14 @@ class PaymentsController {
           href: `http://localhost:3003/api/admin/payments/${newPayment.id}`
         }
       ];
-      return res.status(201).set('Location', `/payments/${newPayment.id}`)
+      return res.status(201).set('Location', `/api/admin/payments/${newPayment.id}`)
       .json({
         id: newPayment.id, 
         status: newPayment.status,
         links: links
       });
     } catch (error) {
-      return res.status(500).json(error.message);
+      return res.status(500).json({message: `${error.message} - Erro no servidor.`});
     }
   }
 
@@ -90,7 +90,7 @@ class PaymentsController {
         return res.status(200).json(updatedPayment);
       }
       } catch (error) {
-        return res.status(500).json(error.message);
+        return res.status(400).json({message: `${err.message} - Falha ao encontrar ID do pagamento, informe um ID correto!`});
       }
   }
 }

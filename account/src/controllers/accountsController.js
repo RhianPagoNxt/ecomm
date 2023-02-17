@@ -24,7 +24,7 @@ class AccountController {
     }
 
     static addAccount = (req, res) => {
-        let account = new accounts(req.body);
+        const account = new accounts(req.body);
 
         account.save((err) => {
             if (!err) {
