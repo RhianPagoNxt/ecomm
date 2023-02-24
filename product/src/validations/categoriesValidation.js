@@ -16,6 +16,7 @@ const categoryValidation = (req, res, next) => {
     }
 
     next();
+    return true;
 }
 
 export default categoryValidation;

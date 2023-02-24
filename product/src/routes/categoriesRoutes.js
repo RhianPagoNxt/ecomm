@@ -12,7 +12,7 @@ router
     .post("/api/admin/categories", categoryValidation, CategoryController.addCategory)
     .put("/api/admin/categories/:id", categoryValidation, CategoryController.updateCategoryById)
     .delete("/api/admin/categories/:id", CategoryController.deleteCategoryById)
-    .patch("/api/admin/categories/:id", categoryValidation, CategoryController.updateCategoryStatusById)
+    .patch("/api/admin/categories/:id", CategoryController.updateCategoryStatusById)
 
     .use('/api-docs', swaggerUi.serve)
     .get('/api-docs', swaggerUi.setup(swaggerDocument));
