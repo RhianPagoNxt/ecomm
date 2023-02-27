@@ -18,7 +18,7 @@ class PaymentsController {
         updatedAt: payment.updatedAt
       })
     } catch (error) {
-      return res.status(400).json({message: `${err.message} - Falha ao encontrar ID do pagamento, informe um ID correto!`});
+      return res.status(400).json({message: `${error.message} - Falha ao encontrar ID do pagamento, informe um ID correto!`});
     }
   }
 
@@ -90,7 +90,7 @@ class PaymentsController {
         return res.status(200).json(updatedPayment);
       }
       } catch (error) {
-        return res.status(400).json({message: `${err.message} - Falha ao encontrar ID do pagamento, informe um ID correto!`});
+        return res.status(400).json({message: `${error.message} - Falha ao encontrar ID do pagamento, informe um ID correto!`});
       }
   }
 }
