@@ -1,17 +1,16 @@
-import { users } from "./createUserAccount.js"; 
-import searchUserAccountByEmailUseCase from "./searchUserAccountByEmail.js";
-export default removeUserUseCase;
+import { users } from './createUserAccount.js';
+import searchUserAccountByEmailUseCase from './searchUserAccountByEmail.js';
 
-function removeUserUseCase (email) {
-    const userSearch = users.findIndex((user) => user.email === email);
+export default function removeUserUseCase(email) {
+  const userSearch = users.findIndex((user) => user.email === email);
 
-    if (userSearch === -1) return false;
- 
-    users.splice(userSearch, 1);
+  if (userSearch === -1) return false;
 
-    const userRemove = searchUserAccountByEmailUseCase(email);
+  users.splice(userSearch, 1);
 
-    if (userRemove) return false;
-    
-    return true;
+  const userRemove = searchUserAccountByEmailUseCase(email);
+
+  if (userRemove) return false;
+
+  return true;
 }

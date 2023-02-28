@@ -1,23 +1,30 @@
-import { users } from "../use-case/createUserAccount.js"
-export default addUserAddressUseCase;
+import { users } from './createUserAccount.js';
 
-function addUserAddressUseCase (email, logradouro, numero, complemento, bairro, cep, cidade, uf) {
-    const userInd = users.findIndex((user) => user.email === email);
+export default function addUserAddressUseCase(
+  email,
+  logradouro,
+  numero,
+  complemento,
+  bairro,
+  cep,
+  cidade,
+  uf,
+) {
+  const userInd = users.findIndex((user) => user.email === email);
 
-    if (userInd === -1) return false;
+  if (userInd === -1) return false;
 
-    const addUserAddress = {
-        logradouro: logradouro,
-        numero: numero,
-        complemento: complemento,
-        bairro: bairro,
-        cep: cep,
-        cidade: cidade,
-        uf: uf
-    }
+  const addUserAddress = {
+    logradouro,
+    numero,
+    complemento,
+    bairro,
+    cep,
+    cidade,
+    uf,
+  };
 
-    users[userInd].address = addUserAddress;
-    
-    return true;
+  users[userInd].address = addUserAddress;
+
+  return true;
 }
-
