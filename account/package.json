@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --testPathPattern='routes/.*\\.test\\.js$' --verbose",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },

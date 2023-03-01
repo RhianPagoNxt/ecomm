@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { describe, it, expect } from '@jest/globals';
 import request from 'supertest';
 import appProduct from '../../src/appProduct.js';
