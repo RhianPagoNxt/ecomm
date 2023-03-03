@@ -1,6 +1,17 @@
-import { describe, it, expect } from '@jest/globals';
+import {
+  describe, it, expect, beforeAll, afterAll,
+} from '@jest/globals';
+import mongoose from 'mongoose';
 import request from 'supertest';
 import appProduct from '../../src/appProduct.js';
+
+beforeAll(async () => {
+  await mongoose.connect('mongodb://admin:secret@mongodb:27017/ecomm-product-test?authSource=admin');
+});
+
+afterAll(async () => {
+  await mongoose.connection.close();
+});
 
 describe('GET /api/categories', () => {
   it('Must show all the categories', async () => {

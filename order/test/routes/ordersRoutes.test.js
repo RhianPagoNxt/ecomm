@@ -1,15 +1,25 @@
-import { describe, it, expect } from '@jest/globals';
+import {
+  describe, it, beforeAll, afterAll,
+} from '@jest/globals';
+import mongoose from 'mongoose';
 import request from 'supertest';
 import appOrder from '../../src/appOrder.js';
 
+beforeAll(async () => {
+  await mongoose.connect('mongodb://admin:secret@mongodb:27017/ecomm-order-test?authSource=admin');
+});
+
+afterAll(async () => {
+  await mongoose.connection.close();
+});
+
 describe('GET /api/admin/orders', () => {
   it('Must show all the orders', async () => {
-    const response = await request(appOrder)
+    await request(appOrder)
       .get('/api/admin/orders')
       .set('Accept', 'application/json')
-      .expect('content-type', /json/);
-
-    expect(typeof (response.body)).toBe('object');
+      .expect('content-type', /json/)
+      .expect(200);
   });
 });
 
@@ -72,7 +82,7 @@ describe('PATCH /api/admin/orders/:id', () => {
     await request(appOrder)
       .patch(`/api/admin/orders/${idTested}`)
       .send({
-        payment_id: 2,
+        payment_id: 1,
       })
       .set('Accept', 'application/json')
       .expect('content-type', /json/)
