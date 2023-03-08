@@ -5,8 +5,8 @@ const statusValidation = require('../validations/paymentsValidation');
 const router = Router();
 
 router
-    .get("/api/admin/payments/:id", PaymentsController.listPaymentById)
-    .post("/api/payments", PaymentsController.createPayment)
-    .patch("/api/admin/payments/:id", statusValidation, PaymentsController.updatePaymentStatus)
+  .get('/api/admin/payments/:id', PaymentsController.listPaymentById)
+  .post('/api/payments', PaymentsController.createPayment)
+  .patch('/api/admin/payments/:id', statusValidation, PaymentsController.updatePaymentStatus);
 
 module.exports = router;

@@ -1,10 +1,9 @@
-import { users } from "./createUserAccount.js";
-export default searchUserAccountByAddressUseCase;
+import { users } from './createUserAccount.js';
 
-function searchUserAccountByAddressUseCase (uf) {
-    const userSearch = users.filter((user) => user.address.uf === uf);
+export default function searchUserAccountByAddressUseCase(uf) {
+  const userSearch = users.filter((user) => user.address.uf === uf);
 
-    if (userSearch.length > 0) return userSearch;
+  if (userSearch.length > 0) return userSearch;
 
-    return false;
+  return false;
 }

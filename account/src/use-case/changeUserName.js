@@ -1,12 +1,11 @@
-import { users } from "./createUserAccount.js";
-export default changeUserNameUseCase;
+import { users } from './createUserAccount.js';
 
-function changeUserNameUseCase (email, newName) {
-    const userInd = users.findIndex((user) => user.email === email);
+export default function changeUserNameUseCase(email, newName) {
+  const userInd = users.findIndex((user) => user.email === email);
 
-    if(userInd === -1) return false;
+  if (userInd === -1) return false;
 
-    users[userInd].name = newName;
-    
-    return true;
+  users[userInd].name = newName;
+
+  return true;
 }
