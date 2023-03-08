@@ -8,7 +8,7 @@ const accountValidation = (req, res, next) => {
     email: Joi.string()
       .pattern(/^[a-zA-Z0-9.!#$%&'*+=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)
       .required(),
-    senha: Joi.string()
+    senhaHash: Joi.string()
       .pattern(/^(?=.*[$*&@#])(?=.*\d)(?=.*[aA-zZ])[0-9a-zA-Z$*&@#]{8,}$/)
       .required(),
     cpf: Joi.string()

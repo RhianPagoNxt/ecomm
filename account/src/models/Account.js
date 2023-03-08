@@ -11,7 +11,7 @@ const accountSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    senha: {
+    senhaHash: {
       type: String,
       required: true,
     },

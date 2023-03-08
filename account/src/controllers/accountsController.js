@@ -1,4 +1,6 @@
+import bcrypt from 'bcryptjs';
 import Accounts from '../models/Account.js';
+import createTokenJWT from '../authentication/accountToken.js';
 
 class AccountController {
   static listAccounts = (req, res) => {
@@ -22,8 +24,9 @@ class AccountController {
     });
   };
 
-  static addAccount = (req, res) => {
-    const account = new Accounts(req.body);
+  static addAccount = async (req, res) => {
+    const senhaHasheada = await bcrypt.hash(req.body.senhaHash, 16);
+    const account = new Accounts({ ...req.body, senhaHash: senhaHasheada });
 
     account.save((err) => {
       if (!err) {
@@ -56,6 +59,12 @@ class AccountController {
         res.status(200).send({ message: 'Usuário apagado com sucesso!' });
       }
     });
+  };
+
+  static accountLogin = (req, res) => {
+    const token = createTokenJWT(req.user);
+    res.set('Authorization', token);
+    res.status(204).send();
   };
 }
 

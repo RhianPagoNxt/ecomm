@@ -2,6 +2,7 @@ use ("ecomm-account")
 
 db.accounts.insertMany([
     {
+        _id: ObjectId("63ee457d9491f47c65106cca"),
         nome: "Rhian Moura",
         email: "rhian.moura@example.com",
         senha: "$2y$10$cWVG2INJb2DItW5zZx7iN.SvRjz4rHqiOTelBBi6r.0sd2CkGJ7Ry",

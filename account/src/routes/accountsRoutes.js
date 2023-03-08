@@ -1,4 +1,5 @@
 import express from 'express';
+import passport from 'passport';
 import AccountController from '../controllers/accountsController.js';
 import accountValidation from '../validations/accountsValidation.js';
 // import swaggerUi from 'swagger-ui-express';
@@ -10,6 +11,7 @@ router
   .get('/api/admin/accounts', AccountController.listAccounts)
   .get('/api/accounts/:id', AccountController.listAccountById)
   .post('/api/admin/accounts', accountValidation, AccountController.addAccount)
+  .post('/api/accounts/login', passport.authenticate('local', { session: false }), AccountController.accountLogin)
   .put('/api/admin/accounts/:id', accountValidation, AccountController.updateAccountById)
   .delete('/api/admin/accounts/:id', AccountController.deleteAccountById);
 

@@ -132,7 +132,7 @@ components:
           type: string
         email:
           type: string
-        senha:
+        senhaHash:
           type: string
         cpf:
           type: string

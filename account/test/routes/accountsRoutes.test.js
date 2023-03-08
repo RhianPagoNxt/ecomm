@@ -32,7 +32,7 @@ describe('POST /api/admin/accounts', () => {
       .send({
         nome: 'Carlos Alberto',
         email: 'carlos.alberto@example.com',
-        senha: 'carlinhos123#',
+        senhaHash: 'carlinhos123#',
         cpf: '91444237055',
         telefone: '11119331906',
         endereco: {
@@ -65,7 +65,7 @@ describe('GET /api/accounts/:id', () => {
       _id: idTested,
       nome: expect.any(String),
       email: expect.any(String),
-      senha: expect.any(String),
+      senhaHash: expect.any(String),
       cpf: expect.any(String),
       telefone: expect.any(String),
       endereco: expect.any(Object),
@@ -80,7 +80,7 @@ describe('PUT /api/admin/accounts/:id', () => {
       .send({
         nome: 'Rony Rustico',
         email: 'rony.rustico@example.com',
-        senha: 'rustico123#',
+        senhaHash: 'rustico123#',
         cpf: '91444237055',
         telefone: '11119331906',
         endereco: {
