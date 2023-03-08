@@ -1,19 +1,21 @@
 import passport from 'passport';
+import jwt from 'jsonwebtoken';
 import LocalStrategy from 'passport-local';
+import BearerStrategy from 'passport-http-bearer';
 import bcryptjs from 'bcryptjs';
 import Accounts from '../models/Account.js';
 
 function verifyAccount(account) {
-  if (!account) throw new Error();
+  if (!account) throw new Error({ message: 'Informe dados válidos para email e senha!' });
 }
 
 async function verifyPassword(senha, senhaHash) {
   const validPassword = await bcryptjs.compare(senha, senhaHash);
 
-  if (!validPassword) throw new Error();
+  if (!validPassword) throw new Error({ message: 'Informe dados válidos para email e senha!' });
 }
 
-const initializing = passport.use(
+export const local = passport.use(
   new LocalStrategy({
     usernameField: 'email',
     passwordField: 'senha',
@@ -30,4 +32,16 @@ const initializing = passport.use(
   }),
 );
 
-export default initializing;
+export const bearer = passport.use(
+  new BearerStrategy(
+    async (token, done) => {
+      try {
+        const payload = jwt.verify(token, process.env.KEY_JWT);
+        const account = await Accounts.findById(payload.id);
+        done(null, account);
+      } catch (error) {
+        done(error);
+      }
+    },
+  ),
+);

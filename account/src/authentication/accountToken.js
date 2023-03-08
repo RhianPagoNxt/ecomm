@@ -6,6 +6,6 @@ export default function createTokenJWT(account) {
     id: account._id,
   };
 
-  const token = jwt.sign(payload, 'senha-secreta');
+  const token = jwt.sign(payload, process.env.KEY_JWT);
   return token;
 }
