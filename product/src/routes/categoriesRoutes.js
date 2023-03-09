@@ -8,7 +8,7 @@ import bearer from '../authentication/productsMiddlewaresAuthentication.js';
 const router = express.Router();
 
 router
-  .get('/api/categories', bearer, CategoryController.listCategories)
+  .get('/api/categories', CategoryController.listCategories)
   .get('/api/categories/:id', CategoryController.listCategoryById)
   .post('/api/admin/categories', bearer, categoryValidation, CategoryController.addCategory)
   .put('/api/admin/categories/:id', bearer, categoryValidation, CategoryController.updateCategoryById)

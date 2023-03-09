@@ -8,7 +8,7 @@ import bearer from '../authentication/productsMiddlewaresAuthentication.js';
 const router = express.Router();
 
 router
-  .get('/api/products', bearer, ProductController.listProducts)
+  .get('/api/products', ProductController.listProducts)
   .get('/api/products/:id', ProductController.listProductById)
   .post('/api/admin/products', bearer, productValidation, ProductController.addProduct)
   .put('/api/admin/products/:id', bearer, productValidation, ProductController.updateProductById)
