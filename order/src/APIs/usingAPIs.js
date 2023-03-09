@@ -6,7 +6,7 @@ async function useApiAccounts(id) {
   return accountFound;
 }
 
-async function useApiFinance(id, descricao) {
+async function useApiFinance(id, descricao, authorization) {
   await fetch(`http://finance:3003/api/admin/payments/${id}`, {
     method: 'PATCH',
     body: JSON.stringify({
@@ -15,6 +15,7 @@ async function useApiFinance(id, descricao) {
     }),
     headers: {
       'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': authorization,
     },
   });
 }

@@ -48,6 +48,8 @@ class OrderController {
 
   static updateStatusOrder = async (req, res) => {
     const { id } = req.params;
+    const { authorization } = req.headers;
+    console.log(typeof (authorization));
     const orderSelected = req.body;
 
     Orders.findById(id, async (err, order) => {
@@ -57,7 +59,7 @@ class OrderController {
           enderecoEntrega: order.enderecoEntrega,
           itens: order.itens,
         };
-        await useApiFinance(orderSelected.payment_id, orderInvoice);
+        await useApiFinance(orderSelected.payment_id, orderInvoice, authorization);
       } else {
         res.status(400).send({ message: `${err.message} - Falha ao encontrar ID do pedido, informe um ID correto!` });
       }

@@ -1,5 +1,8 @@
+import * as dotenv from 'dotenv';
 import appOrder from './src/appOrder.js';
 import db from './src/config/dbConnect.js';
+
+dotenv.config();
 
 db.on('error', console.log.bind(console, 'Erro de conexão'));
 db.once('open', () => {
