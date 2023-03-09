@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const appFinance = require('./src/appFinance');
 
 const portAppFinance = process.env.PORT || 3003;
