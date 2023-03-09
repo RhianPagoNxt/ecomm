@@ -4,9 +4,9 @@ import db from './src/config/dbConnect.js';
 
 dotenv.config();
 
-db.on('error', console.log.bind(console, 'Erro de conexão'));
+db.on('error', console.log.bind(console, 'Erro de conexão!'));
 db.once('open', () => {
-  console.log('Conexão com banco feita com sucesso');
+  console.log('Conexão com banco feita com sucesso!');
 });
 
 const portAppOrder = process.env.PORT || 3004;

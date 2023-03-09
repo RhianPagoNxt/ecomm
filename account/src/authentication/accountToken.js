@@ -6,6 +6,6 @@ export default function createTokenJWT(account) {
     id: account._id,
   };
 
-  const token = jwt.sign(payload, process.env.KEY_JWT);
+  const token = jwt.sign(payload, process.env.KEY_JWT, { expiresIn: '1d' });
   return token;
 }

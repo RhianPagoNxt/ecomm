@@ -20,6 +20,7 @@ export const bearer = (req, res, next) => {
     (error, account, info) => {
       if (error) return res.status(400).json({ message: 'Token inválido!' });
       if (!account) return res.status(401).json({ message: 'Usuário não autenticado!' });
+      req.token = info.token;
       req.user = account;
       return next();
     },

@@ -5,7 +5,6 @@ services:
     container_name: product
     image: ecomm-product
     build: ./product
-    tty: true
     ports:
       - 3001:3001
     depends_on:
@@ -15,17 +14,16 @@ services:
     container_name: account
     image: ecomm-account
     build: ./account
-    tty: true
     ports:
       - 3002:3002
     depends_on:
       - mongodb
+      - redis
 
   order:
     container_name: order
     image: ecomm-order
     build: ./order
-    tty: true
     ports:
       - 3004:3004
     depends_on:
@@ -35,11 +33,19 @@ services:
     container_name: finance
     image: ecomm-finance
     build: ./finance
-    tty: true
     ports:
       - 3003:3003
     depends_on:
       - mysql
+
+  redis:
+    image: redis
+    volumes:
+    - redis-ecomm:/data
+    container_name: redis-ecomm
+    restart: always
+    ports:
+    - 6379:6379
 
   mongodb:
     container_name: mongo-ecomm
@@ -68,3 +74,4 @@ services:
 volumes:
   mongo-ecomm:
   mysql-ecomm:
+  redis-ecomm:

@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import Accounts from '../models/Account.js';
 import createTokenJWT from '../authentication/accountToken.js';
+import { addTokenToBlacklist } from '../redis/blacklistController.js';
 
 class AccountController {
   static listAccounts = (req, res) => {
@@ -65,6 +66,16 @@ class AccountController {
     const token = createTokenJWT(req.user);
     res.set('Authorization', token);
     res.status(204).send();
+  };
+
+  static accountLogout = async (req, res) => {
+    try {
+      const { token } = req;
+      await addTokenToBlacklist(token);
+      res.status(204).send();
+    } catch (err) {
+      res.status(500).json({ message: `${err.message} - Erro no servidor!` });
+    }
   };
 }
 

@@ -9,6 +9,7 @@ const router = express.Router();
 
 router
   .get('/api/admin/accounts', bearer, AccountController.listAccounts)
+  .get('/api/accounts/logout', bearer, AccountController.accountLogout)
   .get('/api/accounts/:id', AccountController.listAccountById)
   .post('/api/admin/accounts', accountValidation, AccountController.addAccount)
   .post('/api/accounts/login', local, AccountController.accountLogin)
