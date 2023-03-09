@@ -4,7 +4,7 @@ class CategoryController {
   static listCategories = (req, res) => {
     Categories.find((err, allCategories) => {
       if (err) {
-        res.status(500).send({ message: 'Erro no servidor.' });
+        return res.status(500).send({ message: 'Erro no servidor.' });
       }
       return res.status(200).json(allCategories);
     });
@@ -26,10 +26,10 @@ class CategoryController {
     const category = new Categories(req.body);
 
     category.save((err) => {
-      if (!err) {
-        res.status(201).set(`/api/admin/categories/${category.id}`).send(category.toJSON());
-      } else {
+      if (err) {
         res.status(401).send({ message: 'Acesso negado! Usuário desautorizado' });
+      } else {
+        res.status(201).set(`/api/admin/categories/${category.id}`).send(category.toJSON());
       }
     });
   };

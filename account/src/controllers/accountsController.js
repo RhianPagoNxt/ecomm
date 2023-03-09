@@ -6,7 +6,7 @@ class AccountController {
   static listAccounts = (req, res) => {
     Accounts.find((err, allAccounts) => {
       if (err) {
-        res.status(500).send({ message: 'Erro no servidor.' });
+        return res.status(500).send({ message: 'Erro no servidor.' });
       }
       return res.status(200).json(allAccounts);
     });

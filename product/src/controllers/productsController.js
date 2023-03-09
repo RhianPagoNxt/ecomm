@@ -6,10 +6,9 @@ class ProductController {
       .populate('categoria', 'nome')
       .exec((err, allProducts) => {
         if (err) {
-          res.status(500).send({ message: 'Erro no servidor.' });
-        } else {
-          res.status(200).json(allProducts);
+          return res.status(500).send({ message: 'Erro no servidor.' });
         }
+        return res.status(200).json(allProducts);
       });
   };
 

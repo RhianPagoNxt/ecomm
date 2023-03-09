@@ -1,5 +1,4 @@
 import express from 'express';
-import passport from 'passport';
 import AccountController from '../controllers/accountsController.js';
 import accountValidation from '../validations/accountsValidation.js';
 import { local, bearer } from '../authentication/accountsMiddlewaresAuthentication.js';

@@ -1,5 +1,8 @@
+import * as dotenv from 'dotenv';
 import appProduct from './src/appProduct.js';
 import db from './src/config/dbConnect.js';
+
+dotenv.config();
 
 db.on('error', console.log.bind(console, 'Erro de conexão'));
 db.once('open', () => {
