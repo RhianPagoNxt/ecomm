@@ -1,10 +1,13 @@
+import bcrypt from 'bcryptjs';
 import Accounts from '../models/Account.js';
+import createTokenJWT from '../authentication/accountToken.js';
+import { addTokenToBlacklist } from '../redis/blacklistController.js';
 
 class AccountController {
   static listAccounts = (req, res) => {
     Accounts.find((err, allAccounts) => {
       if (err) {
-        res.status(500).send({ message: 'Erro no servidor.' });
+        return res.status(500).send({ message: 'Erro no servidor.' });
       }
       return res.status(200).json(allAccounts);
     });
@@ -22,8 +25,9 @@ class AccountController {
     });
   };
 
-  static addAccount = (req, res) => {
-    const account = new Accounts(req.body);
+  static addAccount = async (req, res) => {
+    const senhaHasheada = await bcrypt.hash(req.body.senhaHash, 16);
+    const account = new Accounts({ ...req.body, senhaHash: senhaHasheada });
 
     account.save((err) => {
       if (!err) {
@@ -56,6 +60,22 @@ class AccountController {
         res.status(200).send({ message: 'Usuário apagado com sucesso!' });
       }
     });
+  };
+
+  static accountLogin = (req, res) => {
+    const token = createTokenJWT(req.user);
+    res.set('Authorization', token);
+    res.status(204).send();
+  };
+
+  static accountLogout = async (req, res) => {
+    try {
+      const { token } = req;
+      await addTokenToBlacklist(token);
+      res.status(204).send();
+    } catch (err) {
+      res.status(500).json({ message: `${err.message} - Erro no servidor!` });
+    }
   };
 }
 

@@ -11,7 +11,9 @@
         "ecmaVersion": "latest"
     },
     "rules": {
+        "import/no-extraneous-dependencies": ["off", {"devDependencies": false, "optionalDependencies": false, "peerDependencies": false}],
         "linebreak-style": ["error", "windows"],
+        "no-unused-vars": "off",
         "no-console": 0
     }
 }
