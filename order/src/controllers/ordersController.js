@@ -38,10 +38,10 @@ class OrderController {
     };
     const newOrder = await new Orders(orderCreation);
     await newOrder.save((err, orderCreated) => {
-      if (!err) {
-        res.status(201).set('Location', `/api/admin/orders/${orderCreated.id}`).json(orderCreated);
+      if (err) {
+        res.status(401).send({ message: err.message });
       } else {
-        res.status(401).send({ message: 'Acesso negado! Usuário desautorizado' });
+        res.status(201).set('Location', `/api/admin/orders/${orderCreated.id}`).json(orderCreated);
       }
     });
   };
@@ -53,23 +53,23 @@ class OrderController {
     const orderSelected = req.body;
 
     Orders.findById(id, async (err, order) => {
-      if (!err) {
+      if (err) {
+        res.status(400).send({ message: `${err.message} - Falha ao encontrar ID do pedido, informe um ID correto!` });
+      } else {
         const orderInvoice = {
           cliente: order.cliente,
           enderecoEntrega: order.enderecoEntrega,
           itens: order.itens,
         };
         await useApiFinance(orderSelected.payment_id, orderInvoice, authorization);
-      } else {
-        res.status(400).send({ message: `${err.message} - Falha ao encontrar ID do pedido, informe um ID correto!` });
       }
     });
 
     Orders.findByIdAndUpdate(id, { $set: { status: 'PAGO' } }, (err) => {
-      if (!err) {
-        res.status(200).set('Location', `/api/admin/orders/${id}`).send({ message: 'Status do pedido atualizado com sucesso!' });
-      } else {
+      if (err) {
         res.status(400).send({ message: `${err.message} - Falha ao encontrar ID do pedido, informe um ID correto!` });
+      } else {
+        res.status(200).set('Location', `/api/admin/orders/${id}`).send({ message: 'Status do pedido atualizado com sucesso!' });
       }
     });
   };

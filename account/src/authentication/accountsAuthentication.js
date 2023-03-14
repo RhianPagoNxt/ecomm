@@ -4,7 +4,7 @@ import LocalStrategy from 'passport-local';
 import BearerStrategy from 'passport-http-bearer';
 import bcryptjs from 'bcryptjs';
 import Accounts from '../models/Account.js';
-import { checkBlacklist } from '../redis/blacklistController.js';
+import { isTokenBlacklisted } from '../redis/blacklistController.js';
 
 function verifyAccount(account) {
   if (!account) throw new Error({ message: 'Informe dados válidos para email e senha!' });
@@ -17,7 +17,7 @@ async function verifyPassword(senha, senhaHash) {
 }
 
 async function checkTokenSituation(token) {
-  const tokenStituation = await checkBlacklist(token);
+  const tokenStituation = await isTokenBlacklisted(token);
   if (tokenStituation) throw new jwt.JsonWebTokenError('Token expirado ou inválido por logout!');
 }
 

@@ -30,10 +30,10 @@ class ProductController {
     const product = new Products(req.body);
 
     product.save((err) => {
-      if (!err) {
-        res.status(201).set(`/api/admin/products/${product.id}`).send(product.toJSON());
+      if (err) {
+        res.status(400).send({ message: err.message });
       } else {
-        res.status(401).send({ message: 'Acesso negado! Usuário desautorizado' });
+        res.status(201).set(`/api/admin/products/${product.id}`).send(product.toJSON());
       }
     });
   };

@@ -30,10 +30,10 @@ class AccountController {
     const account = new Accounts({ ...req.body, senhaHash: senhaHasheada });
 
     account.save((err) => {
-      if (!err) {
-        res.status(201).set(`/api/accounts/${account.id}`).send(account.toJSON());
+      if (err) {
+        res.status(400).send({ message: err.message });
       } else {
-        res.status(401).send({ message: 'Acesso negado! Usuário desautorizado' });
+        res.status(201).set(`/api/accounts/${account.id}`).send(account.toJSON());
       }
     });
   };
