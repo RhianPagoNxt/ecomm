@@ -37,6 +37,20 @@ services:
       - 3003:3003
     depends_on:
       - mysql
+  
+  api-gateway:
+    container_name: api-gateway
+    image: ecomm-api-gateway
+    build: ./api-gateway
+    ports:
+      - 3005:3005
+    volumes:
+      - ecomm-api-gateway:/data
+    depends_on:
+      - account
+      - finance
+      - order
+      - product
 
   redis:
     image: redis
@@ -75,3 +89,4 @@ volumes:
   mongo-ecomm:
   mysql-ecomm:
   redis-ecomm:
+  ecomm-api-gateway:
