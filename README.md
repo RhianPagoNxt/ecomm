@@ -88,7 +88,7 @@ Esse conceito é aplicado na utilização de mais de um banco de dados, separand
 
 ### Eventos assíncronos‌
 
-Esse conceito é aplicado em diversos momentos no uso da aplicação, um bom exemplo é o evento assíncrono de autenticação de um usuário prensente na base de dados para efetuação de seu login.
+Esse conceito é aplicável.
 
 ### Agregação de logs
 

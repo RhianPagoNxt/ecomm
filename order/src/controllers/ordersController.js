@@ -39,7 +39,7 @@ class OrderController {
     const newOrder = await new Orders(orderCreation);
     await newOrder.save((err, orderCreated) => {
       if (err) {
-        res.status(401).send({ message: err.message });
+        res.status(500).send({ message: err.message });
       } else {
         res.status(201).set('Location', `/api/admin/orders/${orderCreated.id}`).json(orderCreated);
       }
