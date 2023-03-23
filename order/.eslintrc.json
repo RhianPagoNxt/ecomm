@@ -13,7 +13,6 @@
     "rules": {
         "import/extensions": [ "error", "ignorePackages", { "": "never" } ],
         "quote-props": "off",
-        "linebreak-style": ["error", "windows"],
         "no-console": 0,
         "no-unused-vars": "off"
     }

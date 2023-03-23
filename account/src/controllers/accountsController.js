@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import Accounts from '../models/Account.js';
 import createTokenJWT from '../authentication/accountToken.js';
-import { addTokenToBlacklist } from '../redis/blacklistController.js';
+import addTokenToBlacklist from '../redis/blacklistController.js';
 
 class AccountController {
   static listAccounts = (req, res) => {
@@ -30,10 +30,10 @@ class AccountController {
     const account = new Accounts({ ...req.body, senhaHash: senhaHasheada });
 
     account.save((err) => {
-      if (!err) {
-        res.status(201).set(`/api/accounts/${account.id}`).send(account.toJSON());
+      if (err) {
+        res.status(400).send({ message: err.message });
       } else {
-        res.status(401).send({ message: 'Acesso negado! Usuário desautorizado' });
+        res.status(201).set(`/api/accounts/${account.id}`).send(account.toJSON());
       }
     });
   };
@@ -70,7 +70,7 @@ class AccountController {
 
   static accountLogout = async (req, res) => {
     try {
-      const { token } = req;
+      const { token } = req.params;
       await addTokenToBlacklist(token);
       res.status(204).send();
     } catch (err) {
