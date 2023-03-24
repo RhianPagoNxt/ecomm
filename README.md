@@ -97,3 +97,31 @@ Esse conceito ainda não é aplicável, pois não há necesidade de uma divisão
 ### Agregação de métricas
 
 Esse conceito ainda não é aplicável tendo em vista que ainda não estamos trabalhando com um grande processamento de acessos e requisições, assim que a aplicação estiver dísponível para uso, uma análise mais minuciosa se torna necessária.
+
+---
+
+## Mais aspectos de Microservices
+
+### Padronização das stacks
+
+Padronização feita pelo uso da mesma linguagem para todos os serviços, a linguagem Javascript com utilização do node. Seguindo um mesmo modelo de código bem definido e devidamente separado, com correções e monitoramento feitos via padrão de código selecionado no ESLint.
+
+### Solução para Service Discovery
+
+Para melhor manuseio da aplicação, podemos utilizar um registrador de instâncias, responsável por promover um controle maior do sistema uma vez que os serviços forem localizados e registrados na base de comunicação. Um exemplo de solução seria o uso de DNS (Domain Name System) ou Kubernetes.
+
+### Aspectos de segurança
+
+Como aspectos de segurança temos o hasheamento das senhas (criptografia), autenticação e autorização realizadas via token.
+
+### Tecnologias a adotar para deploy e build
+
+A parte de build pode ser feita através do GitHub Actions, enquanto o deploy pode ser realizado pelo próprio Docker ou Jenkins.
+
+### Tolerância a falhas em aplicações síncronas
+
+Circuit breaker e cache são boas maneiras de trabalhar com falhas em aplicações síncronas, quando necessárias, evitam que a falha de um serviço cause tamanho impacto no resto da aplicação reduzindo possíveis danos no sistema como quebras e sobrecargas.
+
+### Quando usar comunicação assíncrona
+
+A comunicação assíncrona pode ser vista no processamento de um pedido, uma vez que os processos de pagamento do pedido e criação da nota fiscal não precisam ser feitos no instante exato que o pedido for realizado.
